@@ -55,7 +55,7 @@ export default function LongTermStays() {
               <div className="p-8 w-full md:w-1/2 flex flex-col justify-center">
                 <span className="text-xs font-bold tracking-widest text-tertiary-fixed-dim uppercase mb-2">The Remote Expert</span>
                 <h3 className="font-headline text-2xl text-primary mb-4">Remote Professionals</h3>
-                <p className="text-on-surface-variant text-sm leading-relaxed mb-6">Seeking 3–6 month stays with high-speed connectivity and inspiring coastal workspaces — trading the city commute for ocean views.</p>
+                <p className="text-on-surface-variant text-sm leading-relaxed mb-6">Seeking 36 month stays with high-speed connectivity and inspiring coastal workspaces  trading the city commute for ocean views.</p>
                 <span className="material-symbols-outlined text-primary self-start">arrow_forward</span>
               </div>
             </div>

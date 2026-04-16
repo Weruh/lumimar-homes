@@ -34,7 +34,7 @@ const properties = [
     usdRate: '$105',
     tag: 'Penthouse',
     tagColor: 'bg-[#1a237e] text-white',
-    desc: 'Top-floor penthouse with panoramic views. Features a dedicated workspace with high-speed fibre, premium furnishings, and a wraparound balcony — built for remote professionals.',
+    desc: 'Top-floor penthouse with panoramic views. Features a dedicated workspace with high-speed fibre, premium furnishings, and a wraparound balcony - built for remote professionals.',
     img: '/images/s5/1.jpg',
   },
   {
@@ -62,7 +62,7 @@ const properties = [
     usdRate: '$75',
     tag: 'VIP Suite',
     tagColor: 'bg-tertiary-fixed-dim text-on-tertiary-fixed',
-    desc: 'Intimate VIP penthouse for couples or solo travellers who demand quality. Curated décor, rooftop access, and a fully-equipped kitchen in the heart of Shanzu.',
+    desc: 'Intimate VIP penthouse for couples or solo travellers who demand quality. Curated d(c)cor, rooftop access, and a fully-equipped kitchen in the heart of Shanzu.',
     img: '/images/s10/1.jpg',
   },
 ];
@@ -72,17 +72,17 @@ export default function StayInquiry() {
     <>
       {/* ── Hero ── */}
       <section className="pt-20 pb-12 px-8 bg-surface-container-lowest text-center">
-        <span className="font-label text-tertiary-fixed-dim tracking-[0.2em] uppercase mb-4 block text-sm">Direct Booking · Shanzu, Mombasa</span>
+        <span className="font-label text-tertiary-fixed-dim tracking-[0.2em] uppercase mb-4 block text-sm">Direct Booking / Shanzu, Mombasa</span>
         <h1 className="font-headline text-5xl md:text-6xl text-primary mb-6 leading-tight">
           Book Direct.<br />
           <span className="italic font-normal">Skip the Platform Fee.</span>
         </h1>
         <p className="text-on-surface-variant text-lg max-w-2xl mx-auto mb-6 leading-relaxed">
-          Every property below is managed by Lumimar in Shanzu, Mombasa. Book directly with us via WhatsApp and save the 12–15% platform commission — we pass a portion of that saving straight back to you.
+          Every property below is managed by Lumimar in Shanzu, Mombasa. Book directly with us via WhatsApp and save the 12-15% platform commission - we pass a portion of that saving straight back to you.
         </p>
         <div className="inline-flex items-center gap-2 bg-tertiary-fixed-dim/20 text-primary px-4 py-2 rounded-full text-sm font-semibold">
           <span className="material-symbols-outlined text-base">verified</span>
-          All properties professionally managed · 4.9★ average guest rating
+          All properties professionally managed / 4.9 average guest rating
         </div>
       </section>
 
@@ -91,7 +91,7 @@ export default function StayInquiry() {
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           <div className="flex items-center gap-3">
             <span className="material-symbols-outlined text-tertiary-fixed-dim text-2xl">savings</span>
-            <p className="text-white font-semibold">Book direct and save up to 15% vs. Airbnb pricing — same property, better rate, direct relationship.</p>
+            <p className="text-white font-semibold">Book direct and save up to 15% vs. Airbnb pricing - same property, better rate, direct relationship.</p>
           </div>
           <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="shrink-0 flex items-center gap-2 bg-[#25D366] text-white px-6 py-3 rounded-md font-bold hover:bg-[#1ebc5a] transition-colors whitespace-nowrap">
             <WhatsAppIcon />
@@ -144,7 +144,7 @@ export default function StayInquiry() {
 
       {/* ── More properties note ── */}
       <section className="py-12 px-8 bg-surface-container-low text-center">
-        <p className="text-on-surface-variant mb-2">More properties available — we list across all major platforms too.</p>
+        <p className="text-on-surface-variant mb-2">More properties available - we list across all major platforms too.</p>
         <p className="text-sm text-on-surface-variant/60 mb-6">Can't find what you're looking for? Message us and we'll match you to the right property in Shanzu.</p>
         <a href={WA_LINK} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 bg-primary text-white px-8 py-3 rounded-lg font-bold hover:bg-primary/90 transition-colors">
           <WhatsAppIcon />
@@ -159,7 +159,7 @@ export default function StayInquiry() {
             <span className="font-label text-on-secondary-container tracking-widest uppercase mb-3 block text-xs">Staying Longer?</span>
             <h2 className="font-headline text-3xl text-primary mb-4">Monthly Stays From KES 250,000</h2>
             <p className="text-on-secondary-container leading-relaxed mb-6">
-              Remote professionals and corporate relocations get preferential monthly rates in Shanzu. Fully furnished, fibre internet, dedicated workspace — everything set up before you arrive.
+              Remote professionals and corporate relocations get preferential monthly rates in Shanzu. Fully furnished, fibre internet, dedicated workspace - everything set up before you arrive.
             </p>
             <Link to="/long-term-stays" className="inline-block bg-primary text-white px-8 py-4 rounded-md font-bold hover:bg-primary/90 transition-colors">
               Explore Long-Term Options
@@ -169,7 +169,7 @@ export default function StayInquiry() {
             <p className="font-headline text-5xl text-primary font-bold mb-1">98%</p>
             <p className="text-xs uppercase tracking-widest text-on-surface-variant">Long-stay occupancy</p>
             <div className="mt-4 pt-4 border-t border-outline-variant/10">
-              <p className="font-headline text-3xl text-tertiary-fixed-dim font-bold mb-1">30–90</p>
+              <p className="font-headline text-3xl text-tertiary-fixed-dim font-bold mb-1">30-90</p>
               <p className="text-xs uppercase tracking-widest text-on-surface-variant">Day stay options</p>
             </div>
           </div>

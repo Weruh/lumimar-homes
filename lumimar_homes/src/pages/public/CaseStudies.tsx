@@ -80,7 +80,7 @@ export default function CaseStudies() {
           <div className="order-2 md:order-1">
             <div className="inline-flex items-center gap-2 bg-tertiary-fixed-dim/20 text-primary px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest mb-4">
               <span className="material-symbols-outlined text-sm">flight</span>
-              Diaspora Owner · Based in Manchester
+              Diaspora Owner / Based in Manchester
             </div>
             <h2 className="text-3xl font-headline text-primary mb-4">Kilifi Creek Villa, Kilifi</h2>
             <p className="text-on-surface-variant mb-6 leading-relaxed">

@@ -47,7 +47,7 @@ export default function Apply() {
         body: JSON.stringify(form),
       });
     } catch (_) {
-      // Fail silently — show success either way so the UX is not disrupted
+      // Fail silently so the UX is not disrupted.
     }
     setSending(false);
     setSubmitted(true);
@@ -73,7 +73,7 @@ export default function Apply() {
               className="inline-flex items-center justify-center gap-3 bg-[#25D366] text-white px-8 py-4 rounded-lg font-bold hover:bg-[#1ebc5a] transition-colors shadow-lg"
             >
               <WhatsAppIcon />
-              Chat on WhatsApp — +254 705 551 021
+              Chat on WhatsApp: +254 705 551 021
             </a>
             <a
               href={`mailto:${EMAIL}`}
@@ -84,7 +84,7 @@ export default function Apply() {
             </a>
           </div>
           <div className="mt-10">
-            <Link to="/" className="text-primary font-semibold text-sm hover:underline">← Back to Homepage</Link>
+            <Link to="/" className="text-primary font-semibold text-sm hover:underline">Back to Homepage</Link>
           </div>
         </div>
       </div>
@@ -98,12 +98,12 @@ export default function Apply() {
 
           {/* Left: Value proposition */}
           <div className="pt-4">
-            <p className="font-label text-tertiary-fixed-dim tracking-[0.2em] uppercase mb-4 text-sm">Free — No Obligation</p>
+            <p className="font-label text-tertiary-fixed-dim tracking-[0.2em] uppercase mb-4 text-sm">Free / No Obligation</p>
             <h1 className="font-headline text-5xl md:text-6xl leading-tight mb-6">
               Discover What Your Property Could Earn.
             </h1>
             <p className="text-white/70 text-lg leading-relaxed mb-10">
-              Fill in the form and a Lumimar partner will send you a free, personalised revenue estimate within 24 hours — based on real data from our active coastal portfolio.
+              Fill in the form and a Lumimar partner will send you a free, personalised revenue estimate within 24 hours - based on real data from our active coastal portfolio.
             </p>
 
             <div className="space-y-6 mb-12">
@@ -122,7 +122,7 @@ export default function Apply() {
                 </div>
                 <div>
                   <p className="font-bold">Response in 24 Hours</p>
-                  <p className="text-white/60 text-sm mt-1">A real person will reach out — not a bot, not a newsletter blast.</p>
+                  <p className="text-white/60 text-sm mt-1">A real person will reach out - not a bot, not a newsletter blast.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -200,8 +200,8 @@ export default function Apply() {
                   <option value="">Select approximate monthly earnings...</option>
                   <option value="not-rented">Not currently rented out</option>
                   <option value="under-50k">Under KES 50,000 / month</option>
-                  <option value="50k-100k">KES 50,000 – 100,000 / month</option>
-                  <option value="100k-200k">KES 100,000 – 200,000 / month</option>
+                  <option value="50k-100k">KES 50,000 - 100,000 / month</option>
+                  <option value="100k-200k">KES 100,000 - 200,000 / month</option>
                   <option value="200k-plus">KES 200,000+ / month</option>
                   <option value="unsure">I'm not sure</option>
                 </select>
@@ -214,8 +214,8 @@ export default function Apply() {
                   className="w-full bg-surface-container-low border border-outline-variant/20 rounded-lg px-4 py-3 text-primary text-sm focus:outline-none focus:border-primary transition-colors"
                 >
                   <option value="">Select a service...</option>
-                  <option value="full-management">Full Management — I want completely hands-off</option>
-                  <option value="co-hosting">Co-Hosting — I'm involved but need digital help</option>
+                  <option value="full-management">Full Management - I want completely hands-off</option>
+                  <option value="co-hosting">Co-Hosting - I'm involved but need digital help</option>
                   <option value="long-term">Long-Term / Monthly Stays</option>
                   <option value="interior-styling">Interior Styling & Property Setup</option>
                   <option value="estimate">Just a free revenue estimate for now</option>
@@ -238,7 +238,7 @@ export default function Apply() {
                 disabled={sending}
                 className="w-full bg-primary text-white py-4 rounded-lg font-bold text-base hover:bg-primary-container active:scale-[0.99] transition-all shadow-ambient disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                {sending ? 'Sending…' : 'Get My Free Revenue Estimate →'}
+                {sending ? 'Sending...' : 'Get My Free Revenue Estimate ->'}
               </button>
               <p className="text-xs text-center text-on-surface-variant">No spam. No hard sell. Just clarity on what your property can earn.</p>
             </form>
@@ -262,7 +262,7 @@ export default function Apply() {
             <p className="text-xs uppercase tracking-widest text-on-surface-variant mt-2">Active Properties</p>
           </div>
           <div>
-            <p className="text-4xl font-headline font-bold text-primary">4.9★</p>
+            <p className="text-4xl font-headline font-bold text-primary">4.9...</p>
             <p className="text-xs uppercase tracking-widest text-on-surface-variant mt-2">Avg Guest Rating</p>
           </div>
         </div>

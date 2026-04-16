@@ -12,7 +12,7 @@ const WhatsAppIcon = () => (
 const faqs = [
   {
     q: 'What is your management fee?',
-    a: 'Our commission ranges from 15% to 25% of gross rental income depending on the service tier. Full Management is 20–25%; Co-Hosting starts from 15%. There are no hidden fees — your monthly statement shows every line item clearly.'
+    a: 'Our commission ranges from 15% to 25% of gross rental income depending on the service tier. Full Management is 20-25%; Co-Hosting starts from 15%. There are no hidden fees - your monthly statement shows every line item clearly.'
   },
   {
     q: 'How do you handle guest screenings?',
@@ -47,7 +47,7 @@ export default function Home() {
               Your Property<br />Should Be Earning More.
             </h1>
             <p className="text-white/90 text-lg mb-8 max-w-lg leading-relaxed">
-              Properties managed by Lumimar average <strong className="text-tertiary-fixed-dim">94% occupancy</strong> and earn <strong className="text-tertiary-fixed-dim">65% more</strong> than comparable self-managed units — delivering average annual yields of <strong className="text-tertiary-fixed-dim">14–18%</strong> on property value.
+              Properties managed by Lumimar average <strong className="text-tertiary-fixed-dim">94% occupancy</strong> and earn <strong className="text-tertiary-fixed-dim">65% more</strong> than comparable self-managed units - delivering average annual yields of <strong className="text-tertiary-fixed-dim">14-18%</strong> on property value.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link to="/apply" className="bg-tertiary-fixed-dim text-on-tertiary-fixed px-8 py-4 rounded-lg font-semibold hover:bg-white transition-all text-center">
@@ -74,7 +74,7 @@ export default function Home() {
             { stat: '94%', label: 'Average Occupancy' },
             { stat: '65%', label: 'Avg Revenue Increase' },
             { stat: '40+', label: 'Properties Managed' },
-            { stat: '4.9★', label: 'Guest Rating' },
+            { stat: '4.9', label: 'Guest Rating' },
           ].map(({ stat, label }) => (
             <div key={label}>
               <p className="text-3xl font-headline font-bold text-tertiary-fixed-dim">{stat}</p>
@@ -92,12 +92,12 @@ export default function Home() {
               Based in London. Own in Diani.<br className="hidden md:block" /> We handle everything in between.
             </p>
             <p className="text-on-tertiary-fixed/70 mt-2 text-sm max-w-xl">
-              Hundreds of diaspora owners trust Lumimar to run their Kenya Coast property — monthly payouts, zero WhatsApp messages, full transparency.
+              Hundreds of diaspora owners trust Lumimar to run their Kenya Coast property - monthly payouts, zero WhatsApp messages, full transparency.
             </p>
           </div>
           <div className="shrink-0">
             <Link to="/full-management" className="inline-block bg-[#001226] text-white px-8 py-4 rounded-md font-bold hover:bg-white hover:text-[#001226] transition-all whitespace-nowrap">
-              See Full Management →
+              See Full Management &rarr;
             </Link>
           </div>
         </div>
@@ -111,7 +111,7 @@ export default function Home() {
             <p className="font-headline text-2xl text-primary italic leading-snug mb-4">
               "Revenue increased by 65% in the first quarter of our partnership. Their pricing intelligence alone paid for the management fee ten times over."
             </p>
-            <p className="text-sm font-bold text-on-surface-variant uppercase tracking-widest">— James K., Owner · Watamu Beach Villa</p>
+            <p className="text-sm font-bold text-on-surface-variant uppercase tracking-widest">James K. / Owner / Watamu Beach Villa</p>
           </div>
           <div className="md:w-72 shrink-0">
             <div className="bg-secondary-container rounded-xl p-6 space-y-3">
@@ -147,7 +147,7 @@ export default function Home() {
             <div>
               <span className="material-symbols-outlined text-4xl text-primary mb-6">trending_down</span>
               <h3 className="font-headline text-2xl mb-4">Low Occupancy & Seasonal Dips</h3>
-              <p className="text-on-surface-variant max-w-md">Most owners miss out on 40% of potential annual revenue due to static pricing and poor platform visibility. We fix both — automatically, every day.</p>
+              <p className="text-on-surface-variant max-w-md">Most owners miss out on 40% of potential annual revenue due to static pricing and poor platform visibility. We fix both - automatically, every day.</p>
             </div>
             <div className="mt-8 text-sm font-medium text-error">Revenue leakage found in 85% of self-managed units we audit.</div>
           </div>
@@ -182,7 +182,7 @@ export default function Home() {
                 </div>
                 <div>
                   <h4 className="font-bold text-xl mb-1">Professional Co-Hosting</h4>
-                  <p className="text-white/60">AI-powered, data-driven pricing and elite guest communication that consistently ranks our properties at the top of every search — year-round.</p>
+                  <p className="text-white/60">AI-powered, data-driven pricing and elite guest communication that consistently ranks our properties at the top of every search - year-round.</p>
                 </div>
               </div>
               <div className="flex gap-4">
@@ -217,7 +217,7 @@ export default function Home() {
       <section className="py-24 px-8 bg-surface-container-low">
         <div className="max-w-4xl mx-auto text-center mb-12">
           <h2 className="font-headline text-4xl mb-4">Where are you starting from?</h2>
-          <p className="text-on-surface-variant">Pick your situation — we'll show you exactly how we can help.</p>
+          <p className="text-on-surface-variant">Pick your situation - we'll show you exactly how we can help.</p>
         </div>
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6">
           <Link to="/full-management" className="bg-white p-8 rounded-xl shadow-ambient cursor-pointer hover:border-tertiary-fixed-dim border-2 border-transparent transition-all group">
@@ -242,7 +242,7 @@ export default function Home() {
               <div className="w-6 h-6 rounded-full border-2 border-outline-variant group-hover:border-tertiary-fixed-dim transition-colors"></div>
             </div>
             <h3 className="text-xl font-bold mb-2 text-[#0F2740]">I want monthly stays</h3>
-            <p className="text-on-surface-variant text-sm">Stable, mid-term occupancy for remote professionals and corporate relocations — 98% average occupancy rate.</p>
+            <p className="text-on-surface-variant text-sm">Stable, mid-term occupancy for remote professionals and corporate relocations - 98% average occupancy rate.</p>
           </Link>
           <Link to="/full-management" className="bg-white p-8 rounded-xl shadow-ambient cursor-pointer hover:border-tertiary-fixed-dim border-2 border-transparent transition-all group">
             <div className="flex justify-between items-start mb-6">
@@ -250,12 +250,12 @@ export default function Home() {
               <div className="w-6 h-6 rounded-full border-2 border-outline-variant group-hover:border-tertiary-fixed-dim transition-colors"></div>
             </div>
             <h3 className="text-xl font-bold mb-2 text-[#0F2740]">I want fully hands-off</h3>
-            <p className="text-on-surface-variant text-sm">Our Full Management tier. We handle everything — tax filings to lawn care — and you receive a monthly payout.</p>
+            <p className="text-on-surface-variant text-sm">Our Full Management tier. We handle everything - tax filings to lawn care - and you receive a monthly payout.</p>
           </Link>
         </div>
-        <div className="text-center mt-12">
-          <Link to="/apply" className="inline-block bg-primary text-white px-10 py-4 rounded-lg font-bold">Get a Custom Plan →</Link>
-        </div>
+          <div className="text-center mt-12">
+            <Link to="/apply" className="inline-block bg-primary text-white px-10 py-4 rounded-lg font-bold">Get a Custom Plan &rarr;</Link>
+          </div>
       </section>
 
       {/* ── Transparency section ── */}
@@ -302,14 +302,14 @@ export default function Home() {
                 <span className="material-symbols-outlined text-tertiary-fixed-dim">map</span>
                 <div>
                   <p className="font-bold text-lg">Hyper-Local Market Intelligence</p>
-                  <p className="text-on-surface-variant">Diani peaks 40% above baseline in Q1 during triathlon season. Watamu commands an eco-premium year-round due to the marine reserve. Kilifi attracts premium long-stay guests from October to March. We know which weeks to hold rates — no outside agency does.</p>
+                  <p className="text-on-surface-variant">Diani peaks 40% above baseline in Q1 during triathlon season. Watamu commands an eco-premium year-round due to the marine reserve. Kilifi attracts premium long-stay guests from October to March. We know which weeks to hold rates - no outside agency does.</p>
                 </div>
               </li>
               <li className="flex items-start gap-4">
                 <span className="material-symbols-outlined text-tertiary-fixed-dim">gavel</span>
                 <div>
                   <p className="font-bold text-lg">Tax & Compliance Support</p>
-                  <p className="text-on-surface-variant">We organise KRA income documentation, STR licensing guidance, and vendor invoice records monthly — so your rental income stays fully above board.</p>
+                  <p className="text-on-surface-variant">We organise KRA income documentation, STR licensing guidance, and vendor invoice records monthly - so your rental income stays fully above board.</p>
                 </div>
               </li>
               <li className="flex items-start gap-4">
@@ -334,7 +334,7 @@ export default function Home() {
           <div className="flex flex-col md:flex-row justify-between items-start gap-12 relative">
             <div className="hidden md:block absolute top-12 left-0 w-full h-[1px] bg-outline-variant z-0"></div>
             {[
-              { n: '01', title: 'Valuation', desc: 'We perform a detailed market analysis and give you a clear revenue projection — for free.' },
+              { n: '01', title: 'Valuation', desc: 'We perform a detailed market analysis and give you a clear revenue projection - for free.' },
               { n: '02', title: 'Preparation', desc: 'Professional staging and photography to make your home stand out from the first search result.' },
               { n: '03', title: 'Launch', desc: 'Multi-channel listing across Airbnb, Booking.com, VRBO, and our private direct portal.' },
             ].map(({ n, title, desc }) => (

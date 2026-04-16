@@ -17,7 +17,7 @@ const services = [
   {
     icon: 'insights',
     title: 'AI-Powered Dynamic Pricing',
-    desc: 'Daily rate adjustments using PriceLabs data — driven by live demand, local events, and seasonality — maximising your yield every night.'
+    desc: 'Daily rate adjustments using PriceLabs data - driven by live demand, local events, and seasonality - maximising your yield every night.'
   },
   {
     icon: 'cleaning_services',
@@ -32,7 +32,7 @@ const services = [
   {
     icon: 'hub',
     title: 'Platform Management',
-    desc: 'Your property listed and optimised across Airbnb, Booking.com, VRBO, and our private direct portal — all in sync.'
+    desc: 'Your property listed and optimised across Airbnb, Booking.com, VRBO, and our private direct portal - all in sync.'
   },
   {
     icon: 'analytics',
@@ -42,7 +42,7 @@ const services = [
   {
     icon: 'gavel',
     title: 'Tax & Compliance',
-    desc: 'KRA income documentation, STR licensing guidance, and vendor invoice records — organised every month so your earnings stay fully above board.'
+    desc: 'KRA income documentation, STR licensing guidance, and vendor invoice records - organised every month so your earnings stay fully above board.'
   },
 ];
 
@@ -56,12 +56,12 @@ export default function FullManagement() {
           <div className="absolute inset-0 bg-gradient-to-br from-[#001226]/90 to-[#0F2740]/70"></div>
         </div>
         <div className="relative z-10 max-w-3xl">
-          <p className="font-label text-tertiary-fixed-dim tracking-[0.3em] uppercase mb-6 text-sm">Platinum Tier · Fully Hands-Off</p>
+          <p className="font-label text-tertiary-fixed-dim tracking-[0.3em] uppercase mb-6 text-sm">Platinum Tier  / Fully Hands-Off</p>
           <h1 className="font-headline text-5xl md:text-7xl text-white leading-tight mb-8 tracking-tighter">
             Full Management:<br />Nothing Left to Chance.
           </h1>
           <p className="text-white/80 text-xl leading-relaxed mb-10 max-w-2xl font-light">
-            For owners who want zero operational involvement — whether you live in Nairobi, London, or Dubai. We take total stewardship of your property. You just receive your monthly transfer.
+            For owners who want zero operational involvement - whether you live in Nairobi, London, or Dubai. We take total stewardship of your property. You just receive your monthly transfer.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link to="/apply" className="bg-tertiary-fixed-dim text-on-tertiary-fixed px-10 py-4 rounded-md font-semibold tracking-wide hover:bg-white transition-all duration-300 shadow-ambient text-center">
@@ -88,7 +88,7 @@ export default function FullManagement() {
               Based in London. Own in Diani. We handle everything in between.
             </p>
             <p className="text-on-tertiary-fixed/70 mt-2 text-sm max-w-2xl">
-              Full Management was built for the diaspora owner. Monthly payouts wired to your account, zero guest messages, full financial statements — whether you are in Manchester, Toronto, or Dubai.
+              Full Management was built for the diaspora owner. Monthly payouts wired to your account, zero guest messages, full financial statements - whether you are in Manchester, Toronto, or Dubai.
             </p>
           </div>
           <a
@@ -128,7 +128,7 @@ export default function FullManagement() {
         <div className="max-w-4xl mx-auto text-center">
           <span className="font-label text-tertiary-fixed-dim tracking-[0.2em] uppercase mb-4 block text-sm">No Hidden Fees. Ever.</span>
           <h2 className="font-headline text-4xl text-primary mb-6">Simple, Transparent Pricing</h2>
-          <p className="text-on-surface-variant mb-16 max-w-xl mx-auto">We charge a percentage of gross revenue — nothing else. Your monthly statement shows every booking, every deduction, every shilling.</p>
+          <p className="text-on-surface-variant mb-16 max-w-xl mx-auto">We charge a percentage of gross revenue - nothing else. Your monthly statement shows every booking, every deduction, every shilling.</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
             <div className="bg-white rounded-2xl p-10 shadow-ambient border border-outline-variant/10 text-left">
               <p className="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-3">Co-Hosting</p>
@@ -141,13 +141,13 @@ export default function FullManagement() {
                 <li className="flex gap-2"><span className="material-symbols-outlined text-base text-primary">check</span> Real-time owner portal</li>
               </ul>
               <Link to="/co-hosting" className="inline-block mt-8 text-primary font-bold border-b-2 border-tertiary-fixed-dim pb-0.5 hover:border-primary transition-colors text-sm">
-                Learn about Co-Hosting →
+                Learn about Co-Hosting &rarr;
               </Link>
             </div>
             <div className="bg-primary rounded-2xl p-10 shadow-2xl text-left relative overflow-hidden">
               <div className="absolute top-4 right-4 bg-tertiary-fixed-dim text-on-tertiary-fixed px-3 py-1 text-[10px] rounded-full font-bold uppercase tracking-widest">Most Popular</div>
               <p className="text-xs font-bold uppercase tracking-widest text-white/50 mb-3">Full Management</p>
-              <p className="font-headline text-5xl text-tertiary-fixed-dim mb-2">20–25%</p>
+              <p className="font-headline text-5xl text-tertiary-fixed-dim mb-2">20-25%</p>
               <p className="text-white/60 text-sm mb-6">of gross booking revenue</p>
               <ul className="space-y-3 text-sm text-white/80">
                 <li className="flex gap-2"><span className="material-symbols-outlined text-base text-tertiary-fixed-dim">check</span> Everything in Co-Hosting</li>
@@ -161,7 +161,7 @@ export default function FullManagement() {
               </Link>
             </div>
           </div>
-          <p className="text-xs text-on-surface-variant/60">No setup fees. No exit penalties. No surprises. The exact rate depends on property type and location — your estimate will confirm it.</p>
+          <p className="text-xs text-on-surface-variant/60">No setup fees. No exit penalties. No surprises. The exact rate depends on property type and location - your estimate will confirm it.</p>
         </div>
       </section>
 
@@ -177,7 +177,7 @@ export default function FullManagement() {
             <div className="space-y-5">
               {[
                 'Diaspora owners based in the UK, US, or Middle East who cannot manage day-to-day operations from abroad.',
-                'Investors with multiple properties who need a professional operator — not another job.',
+                'Investors with multiple properties who need a professional operator - not another job.',
                 'Owners transitioning from traditional renting who want zero operational involvement and predictable yields.',
                 'Anyone who wants reliable, growing rental income without a single guest interaction.'
               ].map(text => (
@@ -251,12 +251,12 @@ export default function FullManagement() {
             <span className="font-label text-tertiary-fixed-dim tracking-[0.2em] uppercase mb-4 block text-sm">Why Local Knowledge Wins</span>
             <h2 className="font-headline text-4xl text-white mb-6 leading-tight">We Know This Coast Intimately.</h2>
             <p className="text-white/70 text-lg leading-relaxed mb-8">
-              No agency based outside Kenya can replicate what we know. We price with precision because we understand the micro-markets — not just the Kenya Coast as a whole.
+              No agency based outside Kenya can replicate what we know. We price with precision because we understand the micro-markets - not just the Kenya Coast as a whole.
             </p>
             <div className="space-y-4">
               {[
                 ['Diani', 'Peaks 40% above baseline in Q1 during triathlon and safari season. We hold rates firm and fill at premium.'],
-                ['Watamu', 'Commands a year-round eco-premium due to the marine reserve. International eco-tourists pay more — and we target them.'],
+                ['Watamu', 'Commands a year-round eco-premium due to the marine reserve. International eco-tourists pay more - and we target them.'],
                 ['Kilifi & Malindi', 'Strong long-stay demand from October to March. We shift strategy seasonally to maximise yield.'],
               ].map(([location, insight]) => (
                 <div key={location as string} className="flex gap-4 bg-white/5 rounded-lg p-4">
@@ -270,10 +270,10 @@ export default function FullManagement() {
             </div>
           </div>
           <div className="text-center bg-white/5 rounded-2xl p-12">
-            <p className="font-headline text-7xl text-tertiary-fixed-dim font-bold mb-2">14–18%</p>
+            <p className="font-headline text-7xl text-tertiary-fixed-dim font-bold mb-2">14-18%</p>
             <p className="text-white/60 uppercase tracking-widest text-xs mb-8">Average Annual Net Yield</p>
             <p className="text-white/50 text-sm leading-relaxed max-w-xs mx-auto">
-              Across our active portfolio. Ask us what your specific property should be generating — we will tell you honestly.
+              Across our active portfolio. Ask us what your specific property should be generating - we will tell you honestly.
             </p>
             <Link to="/apply" className="inline-block mt-8 bg-tertiary-fixed-dim text-on-tertiary-fixed px-8 py-4 rounded-md font-bold hover:bg-white hover:text-primary transition-all">
               Get My Free Estimate
@@ -287,7 +287,7 @@ export default function FullManagement() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="font-headline text-3xl md:text-4xl text-primary mb-4">Full Management vs. Doing It Yourself</h2>
-            <p className="text-on-surface-variant max-w-xl mx-auto">The real cost of self-managing is not just the missed revenue — it is your time, stress, and guest relationships.</p>
+            <p className="text-on-surface-variant max-w-xl mx-auto">The real cost of self-managing is not just the missed revenue - it is your time, stress, and guest relationships.</p>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -303,9 +303,9 @@ export default function FullManagement() {
               </thead>
               <tbody className="divide-y divide-outline-variant/10">
                 {[
-                  ['Average occupancy', '45–60%', '94%'],
-                  ['Annual net yield', '6–9%', '14–18%'],
-                  ['Revenue vs self-managed', '—', '+65% avg'],
+                  ['Average occupancy', '45-60%', '94%'],
+                  ['Annual net yield', '6-9%', '14-18%'],
+                  ['Revenue vs self-managed', ' - ', '+65% avg'],
                   ['Guest communication', 'You, 24/7', 'Lumimar team only'],
                   ['Dynamic pricing', 'Manual guesswork', 'AI-powered, daily'],
                   ['Housekeeping management', 'You coordinate', 'Lumimar schedules & pays'],
@@ -324,7 +324,7 @@ export default function FullManagement() {
           </div>
           <div className="text-center mt-10">
             <Link to="/pricing" className="text-primary font-bold border-b-2 border-tertiary-fixed-dim pb-1 hover:border-primary transition-colors">
-              View full pricing →
+              View full pricing &rarr;
             </Link>
           </div>
         </div>

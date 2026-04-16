@@ -118,7 +118,7 @@ export default function InteriorStyling() {
               <div className="w-12 h-12 bg-secondary-container rounded-full flex items-center justify-center mb-8">
                 <span className="material-symbols-outlined text-on-secondary-container">palette</span>
               </div>
-              <h3 className="text-2xl text-primary mb-4">The Collector’s Suite</h3>
+              <h3 className="text-2xl text-primary mb-4">The Collectors Suite</h3>
               <p className="text-sm text-on-surface-variant leading-relaxed mb-8 flex-grow">Bespoke interior architecture. We source unique Swahili antiques and contemporary African art to create a singular, unforgettable narrative.</p>
               <ul className="space-y-4 mb-10">
                 <li className="flex items-center gap-3 text-sm text-primary"><span className="material-symbols-outlined text-sm">check_circle</span> Custom Carpentry</li>

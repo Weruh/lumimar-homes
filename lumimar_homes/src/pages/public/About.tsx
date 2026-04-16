@@ -41,7 +41,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── Local market intelligence ── */}
+      {/* -- Local market intelligence -- */}
       <section className="py-24 px-8 bg-surface-container-low">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
@@ -51,9 +51,9 @@ export default function About() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { location: 'Diani Beach', icon: 'surfing', insight: 'Peaks 40% above baseline in Q1 during triathlon and safari season. Year-round demand from South African and European leisure travellers.', tag: 'Peak: Jan–Mar' },
+              { location: 'Diani Beach', icon: 'surfing', insight: 'Peaks 40% above baseline in Q1 during triathlon and safari season. Year-round demand from South African and European leisure travellers.', tag: 'Peak: JanMar' },
               { location: 'Watamu', icon: 'water', insight: 'Commands a year-round eco-premium due to the Watamu Marine National Park. International eco-tourists and divers pay significantly above average nightly rates.', tag: 'Eco Premium' },
-              { location: 'Kilifi', icon: 'sailing', insight: 'Strong long-stay demand from October to March. Creek-view properties attract remote professionals and expats seeking 30–90 day stays at premium rates.', tag: 'Long-Stay Hub' },
+              { location: 'Kilifi', icon: 'sailing', insight: 'Strong long-stay demand from October to March. Creek-view properties attract remote professionals and expats seeking 3090 day stays at premium rates.', tag: 'Long-Stay Hub' },
               { location: 'Malindi', icon: 'flight', insight: 'Consistent Italian and European visitor base creates predictable seasonal demand. Heritage and cultural properties outperform standard listings here.', tag: 'Italian Market' },
             ].map(({ location, icon, insight, tag }) => (
               <div key={location} className="bg-white p-8 rounded-xl shadow-ambient border border-outline-variant/10 flex flex-col">
@@ -75,16 +75,16 @@ export default function About() {
           <h3 className="text-3xl md:text-4xl font-light leading-snug mb-8">
             "Lumimar transformed our underperforming family villa into a sought-after destination. Their attention to detail and transparent reporting gave us complete peace of mind."
           </h3>
-          <p className="text-primary-fixed-dim uppercase tracking-widest text-sm font-bold">— The Kariuki Family, Diani</p>
+          <p className="text-primary-fixed-dim uppercase tracking-widest text-sm font-bold">The Kariuki Family, Diani</p>
         </div>
       </section>
 
-      {/* ── Contact ── */}
+      {/* -- Contact -- */}
       <section className="py-24 px-8 bg-surface-container-low">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="font-headline text-4xl text-primary mb-4">Let's Talk About Your Property</h2>
           <p className="text-on-surface-variant text-lg mb-12 leading-relaxed">
-            Whether you're ready to partner or just exploring your options, we'd love to hear from you. No pressure, no scripts — just a straight conversation about what your property can earn.
+            Whether you're ready to partner or just exploring your options, we'd love to hear from you. No pressure, no scripts, just a straight conversation about what your property can earn.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link

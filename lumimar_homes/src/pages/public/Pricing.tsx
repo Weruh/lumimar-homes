@@ -9,14 +9,14 @@ const tiers = [
     unit: 'of gross revenue',
     tag: null,
     tagColor: '',
-    desc: 'You stay involved in the day-to-day. We handle the digital complexity — pricing, listings, and guest communication — and make your property perform like a professionally managed asset.',
+    desc: 'You stay involved in the day-to-day. We handle the digital complexity - pricing, listings, and guest communication - and make your property perform like a professionally managed asset.',
     features: [
       'Dynamic pricing updated daily',
       'Full listing optimisation (all platforms)',
       '24/7 guest communication',
       'Monthly owner reporting',
       'Real-time owner portal access',
-      'No setup fee · No hidden charges',
+      'No setup fee / No hidden charges',
     ],
     cta: 'Get Started',
     ctaStyle: 'border-2 border-primary text-primary hover:bg-primary hover:text-white',
@@ -24,11 +24,11 @@ const tiers = [
   },
   {
     name: 'Full Management',
-    price: '20–25%',
+    price: '20-25%',
     unit: 'of gross revenue',
     tag: 'Most Popular',
     tagColor: 'bg-tertiary-fixed-dim text-on-tertiary-fixed',
-    desc: 'Completely hands-off ownership. Lumimar handles every aspect of your property — from guest communication and housekeeping to maintenance, compliance, and monthly payouts.',
+    desc: 'Completely hands-off ownership. Lumimar handles every aspect of your property - from guest communication and housekeeping to maintenance, compliance, and monthly payouts.',
     features: [
       'Everything in Co-Hosting, plus:',
       'Professional housekeeping every turnover',
@@ -47,7 +47,7 @@ const tiers = [
     unit: 'monthly rate',
     tag: null,
     tagColor: '',
-    desc: 'Optimised for 30–90 day stays targeting remote professionals and corporate relocations. Predictable monthly income with zero short-let volatility.',
+    desc: 'Optimised for 30-90 day stays targeting remote professionals and corporate relocations. Predictable monthly income with zero short-let volatility.',
     features: [
       'Vetted professional tenants only',
       'Employment & background verification',
@@ -73,7 +73,7 @@ export default function Pricing() {
           <span className="italic font-normal">No Hidden Charges.</span>
         </h1>
         <p className="text-on-surface-variant text-xl font-light leading-relaxed max-w-2xl mx-auto">
-          We earn when you earn. Our commission model means our interests are perfectly aligned with yours — we only make money when your property performs.
+          We earn when you earn. Our commission model means our interests are perfectly aligned with yours - we only make money when your property performs.
         </p>
       </section>
 
@@ -133,9 +133,9 @@ export default function Pricing() {
               </thead>
               <tbody className="divide-y divide-outline-variant/10">
                 {[
-                  ['Average occupancy', '45–60%', '70–80%', '94%'],
-                  ['Revenue vs self-managed', '—', '+20–30%', '+65% avg'],
-                  ['Annual net yield', '6–9%', '9–12%', '14–18%'],
+                  ['Average occupancy', '45-60%', '70-80%', '94%'],
+                  ['Revenue vs self-managed', ' - ', '+20-30%', '+65% avg'],
+                  ['Annual net yield', '6-9%', '9-12%', '14-18%'],
                   ['Guest communication', 'You, 24/7', 'Business hours', '24/7 by Lumimar'],
                   ['Dynamic pricing', 'Manual', 'Weekly updates', 'Daily AI-powered'],
                   ['Monthly reporting', 'Manual spreadsheet', 'PDF report', 'Live owner portal'],
@@ -160,9 +160,9 @@ export default function Pricing() {
         <h2 className="font-headline text-3xl text-primary text-center mb-10">Common Questions</h2>
         <div className="space-y-6">
           {[
-            ['When do you take your commission?', 'We deduct our commission from gross booking revenue before transferring the balance to you. Your monthly statement shows every booking, every deduction, and every transfer — line by line.'],
+            ['When do you take your commission?', 'We deduct our commission from gross booking revenue before transferring the balance to you. Your monthly statement shows every booking, every deduction, and every transfer - line by line.'],
             ['Are there any other fees?', 'No setup fees, no photography fees, no listing fees. The only cost is our commission on revenue actually earned. If your property earns nothing, you pay nothing.'],
-            ['How quickly can you onboard my property?', 'We can onboard within 5–7 business days. That includes a property visit, professional photography, listing creation, and platform setup.'],
+            ['How quickly can you onboard my property?', 'We can onboard within 5-7 business days. That includes a property visit, professional photography, listing creation, and platform setup.'],
             ['Can I switch tiers later?', 'Yes. You can upgrade from Co-Hosting to Full Management or switch to Long-Term Stays at any time with 30 days notice.'],
           ].map(([q, a]) => (
             <div key={q as string} className="border border-outline-variant/20 rounded-xl p-6">
