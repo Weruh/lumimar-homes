@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://lumimarhomes.co.ke/sitemap.xml
+Sitemap: https://home.lumimarbrand.com/sitemap.xml
