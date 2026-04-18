@@ -255,9 +255,9 @@ export default function FullManagement() {
             </p>
             <div className="space-y-4">
               {[
-                ['Diani', 'Peaks 40% above baseline in Q1 during triathlon and safari season. We hold rates firm and fill at premium.'],
-                ['Watamu', 'Commands a year-round eco-premium due to the marine reserve. International eco-tourists pay more - and we target them.'],
-                ['Kilifi & Malindi', 'Strong long-stay demand from October to March. We shift strategy seasonally to maximise yield.'],
+                ['Diani', 'Demand patterns shift through the year, so pricing and positioning need active management rather than static rates.'],
+                ['Watamu', 'Eco-tourism and destination travel shape guest expectations, so presentation and targeting matter.'],
+                ['Kilifi & Malindi', 'Longer stays and seasonal demand require a different strategy from short holiday traffic.'],
               ].map(([location, insight]) => (
                 <div key={location as string} className="flex gap-4 bg-white/5 rounded-lg p-4">
                   <span className="material-symbols-outlined text-tertiary-fixed-dim mt-0.5 shrink-0">location_on</span>
@@ -270,10 +270,10 @@ export default function FullManagement() {
             </div>
           </div>
           <div className="text-center bg-white/5 rounded-2xl p-12">
-            <p className="font-headline text-7xl text-tertiary-fixed-dim font-bold mb-2">14-18%</p>
-            <p className="text-white/60 uppercase tracking-widest text-xs mb-8">Average Annual Net Yield</p>
+            <p className="font-headline text-5xl text-tertiary-fixed-dim font-bold mb-2">Tailored</p>
+            <p className="text-white/60 uppercase tracking-widest text-xs mb-8">Revenue Forecast</p>
             <p className="text-white/50 text-sm leading-relaxed max-w-xs mx-auto">
-              Across our active portfolio. Ask us what your specific property should be generating - we will tell you honestly.
+              Ask us what your specific property should be generating. We will estimate it based on your unit, location, setup, and target guest profile.
             </p>
             <Link to="/apply" className="inline-block mt-8 bg-tertiary-fixed-dim text-on-tertiary-fixed px-8 py-4 rounded-md font-bold hover:bg-white hover:text-primary transition-all">
               Get My Free Estimate
@@ -303,9 +303,9 @@ export default function FullManagement() {
               </thead>
               <tbody className="divide-y divide-outline-variant/10">
                 {[
-                  ['Average occupancy', '45-60%', '94%'],
-                  ['Annual net yield', '6-9%', '14-18%'],
-                  ['Revenue vs self-managed', ' - ', '+65% avg'],
+                  ['Operational burden', 'High', 'Low'],
+                  ['Reporting visibility', 'Manual', 'Structured'],
+                  ['Revenue management', 'Manual guesswork', 'Active optimisation'],
                   ['Guest communication', 'You, 24/7', 'Lumimar team only'],
                   ['Dynamic pricing', 'Manual guesswork', 'AI-powered, daily'],
                   ['Housekeeping management', 'You coordinate', 'Lumimar schedules & pays'],

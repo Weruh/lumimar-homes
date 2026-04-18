@@ -1,6 +1,8 @@
 import { FunctionsHttpError } from '@supabase/supabase-js';
 import { supabase } from './supabase';
 
+const GENERIC_SUBMIT_ERROR = 'We could not submit your request right now. Please try again or contact us directly.';
+
 export type OwnerLeadPayload = {
   name: string;
   email: string;
@@ -23,24 +25,31 @@ export async function submitOwnerLead(payload: OwnerLeadPayload) {
 
   if (error) {
     if (error instanceof FunctionsHttpError) {
-      try {
-        const response = error.context as Response;
-        const body = await response.clone().json() as { error?: string; details?: string; hint?: string };
-        const message = [body.error, body.details, body.hint].filter(Boolean).join(' ');
+      const response = error.context as Response;
 
-        throw new Error(message || error.message);
+      try {
+        const body = await response.clone().json() as { error?: string; details?: string; hint?: string };
+
+        if (response.status >= 500) {
+          throw new Error(GENERIC_SUBMIT_ERROR);
+        }
+
+        throw new Error(body.error || GENERIC_SUBMIT_ERROR);
       } catch {
         try {
-          const response = error.context as Response;
+          if (response.status >= 500) {
+            throw new Error(GENERIC_SUBMIT_ERROR);
+          }
+
           const text = await response.clone().text();
 
-          throw new Error(text || error.message);
+          throw new Error(text || GENERIC_SUBMIT_ERROR);
         } catch {
-          throw new Error(error.message);
+          throw new Error(GENERIC_SUBMIT_ERROR);
         }
       }
     }
 
-    throw new Error(error.message);
+    throw new Error(GENERIC_SUBMIT_ERROR);
   }
 }

@@ -50,7 +50,7 @@ export default function CoHostingServices() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl text-primary mb-4 font-headline">How We Partner</h2>
-            <p className="text-on-surface-variant max-w-xl mx-auto">A seamless integration of your property into the Lumimar portfolio  starting from 15% of gross revenue, no setup fees.</p>
+            <p className="text-on-surface-variant max-w-xl mx-auto">A seamless integration of your property into the Lumimar portfolio, starting from 15% of gross revenue with no setup fees.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div className="flex flex-col items-center text-center">
@@ -82,7 +82,7 @@ export default function CoHostingServices() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-12">
           <div className="md:w-1/2">
             <h2 className="text-4xl md:text-5xl font-headline mb-6">Let's see what your listing can earn.</h2>
-            <p className="text-primary-fixed-dim text-lg mb-8 max-w-md">Our Co-Hosting partners average a 65% revenue increase within the first 90 days  driven by AI-powered pricing and elite listing optimisation. Let's find out what's possible for your property.</p>
+            <p className="text-primary-fixed-dim text-lg mb-8 max-w-md">Co-Hosting is designed to improve pricing discipline, listing quality, and guest communication without taking the property fully out of your hands. Let’s estimate what is possible for your property.</p>
             <ul className="space-y-4 mb-8">
               <li className="flex items-center gap-3"><span className="material-symbols-outlined text-tertiary-fixed-dim">check_circle</span> Daily Dynamic Pricing</li>
               <li className="flex items-center gap-3"><span className="material-symbols-outlined text-tertiary-fixed-dim">check_circle</span> 24/7 Guest Communication</li>

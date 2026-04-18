@@ -81,7 +81,7 @@ export default function AuthLoginPage({
             <div className="relative">
               <input
                 type="email"
-                placeholder="owner@example.com"
+                placeholder="Email address"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
                 className="w-full bg-transparent border-b border-outline-variant/30 py-4 px-1 text-primary focus:outline-none focus:border-primary transition-all duration-300 placeholder:text-outline/40"
