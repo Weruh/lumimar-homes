@@ -107,7 +107,7 @@ export default function Apply() {
               Discover What Your Property Could Earn.
             </h1>
             <p className="text-white/70 text-lg leading-relaxed mb-10">
-              Fill in the form and a Lumimar partner will send you a free, personalised revenue estimate within 24 hours - based on real data from our active coastal portfolio.
+              Fill in the form and a Lumimar partner will send you a free, personalised revenue estimate within 24 hours based on your property type, location, and goals.
             </p>
 
             <div className="space-y-6 mb-12">
@@ -117,7 +117,7 @@ export default function Apply() {
                 </div>
                 <div>
                   <p className="font-bold">Free Revenue Estimate</p>
-                  <p className="text-white/60 text-sm mt-1">Based on real data from 40+ actively managed coastal properties.</p>
+                  <p className="text-white/60 text-sm mt-1">A tailored estimate based on your property details and market positioning.</p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -177,7 +177,7 @@ export default function Apply() {
                     value={form.name}
                     onChange={handleChange}
                     required
-                    placeholder="Jane Kariuki"
+                    placeholder="Your full name"
                     className="w-full bg-surface-container-low border border-outline-variant/20 rounded-lg px-4 py-3 text-primary text-sm focus:outline-none focus:border-primary transition-colors"
                   />
                 </div>
@@ -203,7 +203,7 @@ export default function Apply() {
                   value={form.email}
                   onChange={handleChange}
                   required
-                  placeholder="jane@example.com"
+                  placeholder="Email address"
                   className="w-full bg-surface-container-low border border-outline-variant/20 rounded-lg px-4 py-3 text-primary text-sm focus:outline-none focus:border-primary transition-colors"
                 />
               </div>
@@ -290,20 +290,20 @@ export default function Apply() {
       <section className="py-14 px-8 bg-surface-container-low border-b border-outline-variant/10">
         <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div>
-            <p className="text-4xl font-headline font-bold text-primary">94%</p>
-            <p className="text-xs uppercase tracking-widest text-on-surface-variant mt-2">Avg Occupancy Rate</p>
+            <p className="text-4xl font-headline font-bold text-primary">Local</p>
+            <p className="text-xs uppercase tracking-widest text-on-surface-variant mt-2">Coast-Based Team</p>
           </div>
           <div>
-            <p className="text-4xl font-headline font-bold text-primary">65%</p>
-            <p className="text-xs uppercase tracking-widest text-on-surface-variant mt-2">Avg Revenue Increase</p>
+            <p className="text-4xl font-headline font-bold text-primary">Clear</p>
+            <p className="text-xs uppercase tracking-widest text-on-surface-variant mt-2">Owner Reporting</p>
           </div>
           <div>
-            <p className="text-4xl font-headline font-bold text-primary">40+</p>
-            <p className="text-xs uppercase tracking-widest text-on-surface-variant mt-2">Active Properties</p>
+            <p className="text-4xl font-headline font-bold text-primary">Fast</p>
+            <p className="text-xs uppercase tracking-widest text-on-surface-variant mt-2">Human Follow-Up</p>
           </div>
           <div>
-            <p className="text-4xl font-headline font-bold text-primary">4.9...</p>
-            <p className="text-xs uppercase tracking-widest text-on-surface-variant mt-2">Avg Guest Rating</p>
+            <p className="text-4xl font-headline font-bold text-primary">Full</p>
+            <p className="text-xs uppercase tracking-widest text-on-surface-variant mt-2">Operational Support</p>
           </div>
         </div>
       </section>
