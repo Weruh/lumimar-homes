@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - backend-developement--with-supabase # Added your current branch here
   workflow_dispatch:
 
 permissions:
@@ -18,10 +19,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: lumimar_homes
-
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -37,9 +35,15 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Install dependencies
+        working-directory: lumimar_homes
         run: npm ci
 
       - name: Build site
+        working-directory: lumimar_homes
+        # We put the secrets here so Vite "bakes" them into your JS files
+        env:
+          VITE_SUPABASE_URL: ${{ secrets.VITE_SUPABASE_URL }}
+          VITE_SUPABASE_ANON_KEY: ${{ secrets.VITE_SUPABASE_ANON_KEY }}
         run: npm run build
 
       - name: Upload Pages artifact
