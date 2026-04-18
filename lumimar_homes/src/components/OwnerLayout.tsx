@@ -1,24 +1,38 @@
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 export default function OwnerLayout() {
   const location = useLocation();
-  const isLogin = location.pathname === '/owner/login';
+  const navigate = useNavigate();
+  const { profile, signOut } = useAuth();
 
-  if (isLogin) {
-    return <Outlet />;
-  }
+  const handleSignOut = async () => {
+    await signOut();
+    navigate('/owner/login', { replace: true });
+  };
+
+  const fullName = profile?.full_name?.trim() || 'Owner';
+  const initials = fullName
+    .split(' ')
+    .map((part) => part[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
 
   return (
     <div className="bg-surface text-on-background min-h-screen pb-32 font-body antialiased">
       <header className="bg-[#fbf9f5]/80 dark:bg-[#001226]/80 backdrop-blur-xl fixed top-0 w-full z-50 shadow-ambient">
         <div className="flex justify-between items-center px-6 h-20 w-full max-w-7xl mx-auto">
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 rounded-full overflow-hidden bg-secondary-container">
-              <img src="/images/s1/2.jpg" alt="Profile" className="w-full h-full object-cover" />
+            <div className="w-10 h-10 rounded-full overflow-hidden bg-secondary-container flex items-center justify-center text-primary font-bold">
+              {initials || 'LH'}
             </div>
-            <Link to="/owner/dashboard" className="font-headline font-black text-[#001226] dark:text-[#fbf9f5] tracking-tighter text-2xl">
-              Lumimar Owner Portal
-            </Link>
+            <div>
+              <Link to="/owner/dashboard" className="font-headline font-black text-[#001226] dark:text-[#fbf9f5] tracking-tighter text-2xl">
+                Lumimar Owner Portal
+              </Link>
+              <p className="text-xs text-on-surface-variant">{fullName}</p>
+            </div>
           </div>
           <nav className="hidden md:flex gap-8 items-center">
             <Link to="/owner/dashboard" className={`font-semibold ${location.pathname === '/owner/dashboard' ? 'text-[#001226] dark:text-[#fbf9f5]' : 'text-[#1F2937]/60 dark:text-[#fbf9f5]/60 hover:text-[#001226] transition-all'}`}>
@@ -35,8 +49,15 @@ export default function OwnerLayout() {
             </Link>
           </nav>
           <div className="flex items-center gap-4">
-            <button className="p-2 rounded-full hover:bg-[#f5f3ef] active:scale-95 duration-200 transition-all">
+            <button className="p-2 rounded-full hover:bg-[#f5f3ef] active:scale-95 duration-200 transition-all" aria-label="Notifications">
               <span className="material-symbols-outlined text-[#001226] dark:text-white">notifications</span>
+            </button>
+            <button
+              type="button"
+              onClick={handleSignOut}
+              className="hidden md:inline-flex items-center rounded-md border border-outline-variant/30 px-4 py-2 text-sm font-semibold text-primary hover:bg-surface-container-low transition-colors"
+            >
+              Sign Out
             </button>
           </div>
         </div>
@@ -63,6 +84,10 @@ export default function OwnerLayout() {
           <span className="material-symbols-outlined">person</span>
           <span className="font-label text-[10px] uppercase tracking-[0.05em] font-medium mt-1">Profile</span>
         </Link>
+        <button type="button" onClick={handleSignOut} className="text-[#1F2937]/50 dark:text-[#fbf9f5]/40 flex flex-col items-center gap-1">
+          <span className="material-symbols-outlined">logout</span>
+          <span className="text-[10px] font-bold">Sign Out</span>
+        </button>
       </nav>
     </div>
   );
