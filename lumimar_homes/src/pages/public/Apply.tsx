@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import type { FormEvent, ChangeEvent } from 'react';
+import type { ChangeEvent, FormEvent } from 'react';
+import { submitOwnerLead } from '../../lib/leads';
 
 const WA_NUMBER = '254705551021';
 const WA_LINK = `https://wa.me/${WA_NUMBER}`;
@@ -20,37 +21,42 @@ type FormData = {
   currentEarnings: string;
   service: string;
   message: string;
+  website: string;
 };
-
-// Replace YOUR_FORMSPREE_ID with your form ID from formspree.io (e.g. xpwzgkld)
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORMSPREE_ID';
 
 export default function Apply() {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [form, setForm] = useState<FormData>({
-    name: '', email: '', phone: '', location: '', currentEarnings: '', service: '', message: ''
+    name: '',
+    email: '',
+    phone: '',
+    location: '',
+    currentEarnings: '',
+    service: '',
+    message: '',
+    website: '',
   });
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
+  const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (event: FormEvent) => {
+    event.preventDefault();
     setSending(true);
+    setSubmitError(null);
+
     try {
-      await fetch(FORMSPREE_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-        body: JSON.stringify(form),
-      });
-    } catch (_) {
-      // Fail silently so the UX is not disrupted.
+      await submitOwnerLead(form);
+      setSubmitted(true);
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : 'Unable to submit the form right now.');
+    } finally {
+      setSending(false);
     }
-    setSending(false);
-    setSubmitted(true);
   };
 
   if (submitted) {
@@ -95,8 +101,6 @@ export default function Apply() {
     <>
       <section className="bg-primary text-white py-20 px-8">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-start">
-
-          {/* Left: Value proposition */}
           <div className="pt-4">
             <p className="font-label text-tertiary-fixed-dim tracking-[0.2em] uppercase mb-4 text-sm">Free / No Obligation</p>
             <h1 className="font-headline text-5xl md:text-6xl leading-tight mb-6">
@@ -148,17 +152,31 @@ export default function Apply() {
             </div>
           </div>
 
-          {/* Right: Form */}
           <div className="bg-[#fbf9f5] rounded-2xl p-8 md:p-10 shadow-2xl">
             <h2 className="text-xl font-bold text-primary mb-1 font-headline">Tell us about your property</h2>
             <p className="text-sm text-on-surface-variant mb-6">Takes under 2 minutes.</p>
 
             <form className="space-y-5" onSubmit={handleSubmit}>
+              <input
+                type="text"
+                name="website"
+                value={form.website}
+                onChange={handleChange}
+                tabIndex={-1}
+                autoComplete="off"
+                className="hidden"
+                aria-hidden="true"
+              />
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2">Full Name *</label>
                   <input
-                    type="text" name="name" value={form.name} onChange={handleChange} required
+                    type="text"
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    required
                     placeholder="Jane Kariuki"
                     className="w-full bg-surface-container-low border border-outline-variant/20 rounded-lg px-4 py-3 text-primary text-sm focus:outline-none focus:border-primary transition-colors"
                   />
@@ -166,7 +184,11 @@ export default function Apply() {
                 <div>
                   <label className="block text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2">Phone / WhatsApp *</label>
                   <input
-                    type="tel" name="phone" value={form.phone} onChange={handleChange} required
+                    type="tel"
+                    name="phone"
+                    value={form.phone}
+                    onChange={handleChange}
+                    required
                     placeholder="+254 7XX XXX XXX"
                     className="w-full bg-surface-container-low border border-outline-variant/20 rounded-lg px-4 py-3 text-primary text-sm focus:outline-none focus:border-primary transition-colors"
                   />
@@ -176,7 +198,11 @@ export default function Apply() {
               <div>
                 <label className="block text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2">Email Address *</label>
                 <input
-                  type="email" name="email" value={form.email} onChange={handleChange} required
+                  type="email"
+                  name="email"
+                  value={form.email}
+                  onChange={handleChange}
+                  required
                   placeholder="jane@example.com"
                   className="w-full bg-surface-container-low border border-outline-variant/20 rounded-lg px-4 py-3 text-primary text-sm focus:outline-none focus:border-primary transition-colors"
                 />
@@ -185,7 +211,11 @@ export default function Apply() {
               <div>
                 <label className="block text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2">Property Location *</label>
                 <input
-                  type="text" name="location" value={form.location} onChange={handleChange} required
+                  type="text"
+                  name="location"
+                  value={form.location}
+                  onChange={handleChange}
+                  required
                   placeholder="e.g. Diani Beach, Watamu, Lamu, Kilifi..."
                   className="w-full bg-surface-container-low border border-outline-variant/20 rounded-lg px-4 py-3 text-primary text-sm focus:outline-none focus:border-primary transition-colors"
                 />
@@ -194,7 +224,10 @@ export default function Apply() {
               <div>
                 <label className="block text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2">What Does Your Property Currently Earn Per Month? *</label>
                 <select
-                  name="currentEarnings" value={form.currentEarnings} onChange={handleChange} required
+                  name="currentEarnings"
+                  value={form.currentEarnings}
+                  onChange={handleChange}
+                  required
                   className="w-full bg-surface-container-low border border-outline-variant/20 rounded-lg px-4 py-3 text-primary text-sm focus:outline-none focus:border-primary transition-colors"
                 >
                   <option value="">Select approximate monthly earnings...</option>
@@ -210,7 +243,10 @@ export default function Apply() {
               <div>
                 <label className="block text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2">I'm Interested In *</label>
                 <select
-                  name="service" value={form.service} onChange={handleChange} required
+                  name="service"
+                  value={form.service}
+                  onChange={handleChange}
+                  required
                   className="w-full bg-surface-container-low border border-outline-variant/20 rounded-lg px-4 py-3 text-primary text-sm focus:outline-none focus:border-primary transition-colors"
                 >
                   <option value="">Select a service...</option>
@@ -227,11 +263,16 @@ export default function Apply() {
                   Tell Us More <span className="normal-case font-normal text-on-surface-variant/60">(optional)</span>
                 </label>
                 <textarea
-                  name="message" value={form.message} onChange={handleChange} rows={3}
+                  name="message"
+                  value={form.message}
+                  onChange={handleChange}
+                  rows={3}
                   placeholder="Property type, bedrooms, current nightly rate, what's working or not..."
                   className="w-full bg-surface-container-low border border-outline-variant/20 rounded-lg px-4 py-3 text-primary text-sm focus:outline-none focus:border-primary transition-colors resize-none"
                 />
               </div>
+
+              {submitError ? <p className="text-sm text-error">{submitError}</p> : null}
 
               <button
                 type="submit"
@@ -246,7 +287,6 @@ export default function Apply() {
         </div>
       </section>
 
-      {/* Trust strip */}
       <section className="py-14 px-8 bg-surface-container-low border-b border-outline-variant/10">
         <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div>
