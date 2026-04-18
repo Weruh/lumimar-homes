@@ -28,11 +28,6 @@ The Vite app expects:
 
 Do not put the service role key in a client `.env` file.
 
-For GitHub Actions production builds, set these repository secrets as well:
-
-- `VITE_SUPABASE_URL`
-- `VITE_SUPABASE_ANON_KEY`
-
 ## Supabase Backend
 
 This repository now includes:
@@ -73,16 +68,4 @@ where id = 'YOUR_USER_UUID';
 
 ## Deployment Note
 
-The GitHub Actions workflow deploys the frontend only. Configure these repository secrets before deploying:
-
-- `VITE_SUPABASE_URL`
-- `VITE_SUPABASE_ANON_KEY`
-
-Deploy the Supabase backend manually when migrations or edge functions change:
-
-- `npx supabase link --project-ref YOUR_PROJECT_REF`
-- `npx supabase db push`
-- `npx supabase functions deploy submit-owner-lead`
-- `npx supabase functions deploy invite-owner`
-
-If you need invite emails to use a different public domain than `https://home.lumimarbrand.com`, set the `PUBLIC_SITE_URL` environment variable in Supabase Edge Functions settings.
+The existing GitHub Pages workflow builds the frontend only. If you deploy this project with the owner portal and lead capture enabled, point the frontend at a hosted Supabase project and deploy the edge functions there as well.

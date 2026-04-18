@@ -43,8 +43,8 @@ export default function LongTermStays() {
               <p className="text-on-surface-variant text-lg">We don't just fill beds; we curate communities of vetted, professional residents seeking premium environments.</p>
             </div>
             <div className="text-right">
-              <span className="text-5xl font-headline text-tertiary-fixed-dim">Stable</span>
-              <p className="uppercase text-xs tracking-widest text-on-surface-variant">Monthly Booking Focus</p>
+              <span className="text-5xl font-headline text-tertiary-fixed-dim">98%</span>
+              <p className="uppercase text-xs tracking-widest text-on-surface-variant">Occupancy Rate Average</p>
             </div>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

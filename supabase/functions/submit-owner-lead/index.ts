@@ -12,11 +12,6 @@ type LeadPayload = {
   website?: string;
 };
 
-const MAX_REQUESTS_PER_IP_PER_WINDOW = 3;
-const RATE_LIMIT_WINDOW_MINUTES = 15;
-const DUPLICATE_EMAIL_WINDOW_HOURS = 24;
-const GENERIC_SUBMIT_ERROR = 'We could not submit your request right now. Please try again or contact Lumimar directly.';
-
 const json = (status: number, body: Record<string, unknown>) =>
   new Response(JSON.stringify(body), {
     status,
@@ -27,8 +22,6 @@ const json = (status: number, body: Record<string, unknown>) =>
   });
 
 const sanitize = (value: string | undefined) => value?.trim() ?? '';
-const getClientIp = (forwardedFor: string | null) => forwardedFor?.split(',')[0]?.trim() ?? '';
-const getIsoOffset = (minutes: number) => new Date(Date.now() - minutes * 60 * 1000).toISOString();
 
 Deno.serve(async (request) => {
   if (request.method === 'OPTIONS') {
@@ -78,61 +71,23 @@ Deno.serve(async (request) => {
 
   const forwardedFor = request.headers.get('x-forwarded-for');
   const userAgent = request.headers.get('user-agent');
-  const clientIp = getClientIp(forwardedFor);
-
-  if (clientIp) {
-    const { count, error: rateLimitError } = await supabase
-      .schema('lumimar')
-      .from('lead_inquiries')
-      .select('id', { count: 'exact', head: true })
-      .contains('metadata', { ip: clientIp })
-      .gte('created_at', getIsoOffset(RATE_LIMIT_WINDOW_MINUTES));
-
-    if (rateLimitError) {
-      console.error('lead_ip_rate_limit_check_failed', {
-        message: rateLimitError.message,
-        code: rateLimitError.code,
-      });
-    } else if ((count ?? 0) >= MAX_REQUESTS_PER_IP_PER_WINDOW) {
-      return json(429, { error: 'Too many requests. Please wait a few minutes and try again.' });
-    }
-  }
-
-  const { count: duplicateCount, error: duplicateCheckError } = await supabase
-    .schema('lumimar')
-    .from('lead_inquiries')
-    .select('id', { count: 'exact', head: true })
-    .eq('email', lead.email)
-    .gte('created_at', getIsoOffset(DUPLICATE_EMAIL_WINDOW_HOURS * 60));
-
-  if (duplicateCheckError) {
-    console.error('lead_duplicate_check_failed', {
-      message: duplicateCheckError.message,
-      code: duplicateCheckError.code,
-    });
-  } else if ((duplicateCount ?? 0) > 0) {
-    return json(200, { ok: true });
-  }
 
   const { error } = await supabase.schema('lumimar').from('lead_inquiries').insert({
     ...lead,
     metadata: {
-      ip: clientIp || null,
+      ip: forwardedFor,
       userAgent,
       source: 'website_apply_form',
     },
   });
 
   if (error) {
-    console.error('lead_insert_failed', {
-      message: error.message,
+    return json(500, {
+      error: 'Failed to store lead.',
+      details: error.message,
       hint: error.hint,
       code: error.code,
-      email: lead.email,
-      ip: clientIp || null,
     });
-
-    return json(500, { error: GENERIC_SUBMIT_ERROR });
   }
 
   return json(200, { ok: true });

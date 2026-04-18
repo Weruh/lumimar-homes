@@ -10,8 +10,6 @@ type InvitePayload = {
   primaryResidence?: string;
 };
 
-const DEFAULT_SITE_URL = 'https://home.lumimarbrand.com';
-
 const json = (status: number, body: Record<string, unknown>) =>
   new Response(JSON.stringify(body), {
     status,
@@ -22,17 +20,6 @@ const json = (status: number, body: Record<string, unknown>) =>
   });
 
 const sanitize = (value: string | undefined) => value?.trim() ?? '';
-const getBaseUrl = (request: Request) => {
-  const configuredSiteUrl = sanitize(Deno.env.get('PUBLIC_SITE_URL')) || DEFAULT_SITE_URL;
-  const requestOrigin = sanitize(request.headers.get('origin'));
-  const allowedOrigins = new Set([
-    configuredSiteUrl,
-    'http://127.0.0.1:3000',
-    'http://localhost:3000',
-  ]);
-
-  return requestOrigin && allowedOrigins.has(requestOrigin) ? requestOrigin : configuredSiteUrl;
-};
 
 Deno.serve(async (request) => {
   if (request.method === 'OPTIONS') {
@@ -113,7 +100,7 @@ Deno.serve(async (request) => {
     data: {
       full_name: fullName,
     },
-    redirectTo: new URL('/owner/login', getBaseUrl(request)).toString(),
+    redirectTo: `${request.headers.get('origin') ?? 'http://127.0.0.1:3000'}/owner/login`,
   });
 
   if (inviteError || !invited.user) {
