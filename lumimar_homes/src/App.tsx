@@ -11,6 +11,7 @@ import InternalFinance from './pages/internal/Finance';
 import InternalLeads from './pages/internal/Leads';
 import InternalLogin from './pages/internal/Login';
 import InternalMaintenance from './pages/internal/Maintenance';
+import SetPassword from './pages/auth/SetPassword';
 import OwnerDashboard from './pages/owner/Dashboard';
 import OwnerEarnings from './pages/owner/Earnings';
 import OwnerLogin from './pages/owner/Login';
@@ -46,6 +47,7 @@ export default function App() {
         </Route>
 
         <Route path="/owner/login" element={<OwnerLogin />} />
+        <Route path="/auth/set-password" element={<SetPassword />} />
         <Route
           path="/owner"
           element={

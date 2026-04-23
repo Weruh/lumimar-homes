@@ -12,12 +12,20 @@ export type OwnerLeadPayload = {
   website?: string;
 };
 
+export type OwnerLeadSubmissionResult = {
+  ok: boolean;
+  notifications?: {
+    teamNotified?: boolean;
+    userConfirmed?: boolean;
+  };
+};
+
 export async function submitOwnerLead(payload: OwnerLeadPayload) {
   if (!supabase) {
     throw new Error('Supabase is not configured. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.');
   }
 
-  const { error } = await supabase.functions.invoke('submit-owner-lead', {
+  const { data, error } = await supabase.functions.invoke<OwnerLeadSubmissionResult>('submit-owner-lead', {
     body: payload,
   });
 
@@ -43,4 +51,14 @@ export async function submitOwnerLead(payload: OwnerLeadPayload) {
 
     throw new Error(error.message);
   }
+
+  return (
+    data ?? {
+      ok: true,
+      notifications: {
+        teamNotified: false,
+        userConfirmed: false,
+      },
+    }
+  );
 }

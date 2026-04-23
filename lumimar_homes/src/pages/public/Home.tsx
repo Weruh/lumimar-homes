@@ -34,19 +34,19 @@ export default function Home() {
   return (
     <>
       {/* ── Hero ── */}
-      <section className="relative min-h-[751px] flex items-center overflow-hidden">
+      <section className="relative min-h-[420px] md:min-h-[500px] flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img src="/images/s6/1.jpg" alt="Shanzu coastal villa" className="w-full h-full object-cover brightness-[0.85]" />
         </div>
         <div className="relative z-10 w-full max-w-7xl mx-auto px-8">
-          <div className="max-w-2xl bg-surface/10 backdrop-blur-sm p-12 rounded-xl">
-            <span className="font-label text-xs uppercase tracking-widest text-tertiary-fixed-dim mb-4 block">
+          <div className="max-w-xl bg-surface/10 backdrop-blur-sm p-8 md:p-10 rounded-xl">
+            <span className="font-label text-[11px] md:text-xs uppercase tracking-[0.24em] text-tertiary-fixed-dim mb-4 block">
               For Property Owners on the Kenya Coast
             </span>
-            <h1 className="font-headline text-5xl md:text-7xl font-bold text-white tracking-tighter leading-tight mb-6">
+            <h1 className="font-headline text-4xl md:text-6xl font-bold text-white tracking-tighter leading-[0.95] mb-5">
               Your Property<br />Should Be Earning More.
             </h1>
-            <p className="text-white/90 text-lg mb-8 max-w-lg leading-relaxed">
+            <p className="text-white/90 text-base md:text-lg mb-7 max-w-md leading-relaxed">
               Properties managed by Lumimar average <strong className="text-tertiary-fixed-dim">94% occupancy</strong> and earn <strong className="text-tertiary-fixed-dim">65% more</strong> than comparable self-managed units - delivering average annual yields of <strong className="text-tertiary-fixed-dim">14-18%</strong> on property value.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">

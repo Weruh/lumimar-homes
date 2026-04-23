@@ -105,11 +105,11 @@ export default function About() {
               +254 705 551 021
             </a>
             <a
-              href="mailto:hello@lumimarbrand.co.ke"
+              href="mailto:hello@home.lumimarbrand.com"
               className="inline-flex items-center justify-center gap-3 border border-outline-variant/30 text-primary px-10 py-4 rounded-lg font-bold hover:bg-surface-container transition-colors"
             >
               <span className="material-symbols-outlined">mail</span>
-              hello@lumimarbrand.co.ke
+              hello@home.lumimarbrand.com
             </a>
           </div>
         </div>

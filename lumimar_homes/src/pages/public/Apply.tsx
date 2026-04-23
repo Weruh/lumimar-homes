@@ -5,7 +5,7 @@ import { submitOwnerLead } from '../../lib/leads';
 
 const WA_NUMBER = '254705551021';
 const WA_LINK = `https://wa.me/${WA_NUMBER}`;
-const EMAIL = 'hello@lumimarbrand.co.ke';
+const EMAIL = 'hello@home.lumimarbrand.com';
 
 const WhatsAppIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="shrink-0">
@@ -28,6 +28,10 @@ export default function Apply() {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [notifications, setNotifications] = useState({
+    teamNotified: false,
+    userConfirmed: false,
+  });
   const [form, setForm] = useState<FormData>({
     name: '',
     email: '',
@@ -50,7 +54,11 @@ export default function Apply() {
     setSubmitError(null);
 
     try {
-      await submitOwnerLead(form);
+      const result = await submitOwnerLead(form);
+      setNotifications({
+        teamNotified: Boolean(result.notifications?.teamNotified),
+        userConfirmed: Boolean(result.notifications?.userConfirmed),
+      });
       setSubmitted(true);
     } catch (error) {
       setSubmitError(error instanceof Error ? error.message : 'Unable to submit the form right now.');
@@ -70,7 +78,18 @@ export default function Apply() {
           <p className="text-on-surface-variant text-lg mb-8 leading-relaxed">
             Thank you, <strong>{form.name}</strong>. Your inquiry has been received and a Lumimar partner will reach out within 24 hours with your personalised revenue estimate.
           </p>
-          <p className="text-on-surface-variant text-sm mb-6">For a faster response, message us directly:</p>
+          {notifications.userConfirmed ? (
+            <p className="text-sm text-on-surface-variant mb-6">
+              A confirmation email has been sent to <strong>{form.email}</strong>.
+            </p>
+          ) : null}
+          {!notifications.teamNotified ? (
+            <p className="text-sm text-on-surface-variant mb-6">
+              If you need a faster response, message us directly using WhatsApp or email below.
+            </p>
+          ) : (
+            <p className="text-sm text-on-surface-variant mb-6">For a faster response, message us directly:</p>
+          )}
           <div className="flex flex-col gap-3">
             <a
               href={WA_LINK}
@@ -177,7 +196,7 @@ export default function Apply() {
                     value={form.name}
                     onChange={handleChange}
                     required
-                    placeholder="Jane Kariuki"
+                    placeholder="John Doe"
                     className="w-full bg-surface-container-low border border-outline-variant/20 rounded-lg px-4 py-3 text-primary text-sm focus:outline-none focus:border-primary transition-colors"
                   />
                 </div>
@@ -203,7 +222,7 @@ export default function Apply() {
                   value={form.email}
                   onChange={handleChange}
                   required
-                  placeholder="jane@example.com"
+                  placeholder="Email..."
                   className="w-full bg-surface-container-low border border-outline-variant/20 rounded-lg px-4 py-3 text-primary text-sm focus:outline-none focus:border-primary transition-colors"
                 />
               </div>
@@ -216,7 +235,7 @@ export default function Apply() {
                   value={form.location}
                   onChange={handleChange}
                   required
-                  placeholder="e.g. Diani Beach, Watamu, Lamu, Kilifi..."
+                  placeholder=" location.."
                   className="w-full bg-surface-container-low border border-outline-variant/20 rounded-lg px-4 py-3 text-primary text-sm focus:outline-none focus:border-primary transition-colors"
                 />
               </div>
