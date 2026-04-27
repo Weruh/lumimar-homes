@@ -23,9 +23,33 @@ file_size_limit = "50MiB"
 
 [auth]
 site_url = "https://home.lumimarbrand.com"
-additional_redirect_urls = ["http://127.0.0.1:3000", "http://localhost:3000", "https://home.lumimarbrand.com", "https://home.lumimarbrand.com/owner/login", "https://home.lumimarbrand.com/internal/login"]
+additional_redirect_urls = [
+  "https://home.lumimarbrand.com",
+  "https://home.lumimarbrand.com/auth/set-password",
+  "https://home.lumimarbrand.com/owner/login",
+  "https://home.lumimarbrand.com/internal/login",
+  "http://127.0.0.1:3000",
+  "http://127.0.0.1:3000/auth/set-password",
+  "http://127.0.0.1:3000/owner/login",
+  "http://127.0.0.1:3000/internal/login",
+  "http://localhost:3000",
+  "http://localhost:3000/auth/set-password",
+  "http://localhost:3000/owner/login",
+  "http://localhost:3000/internal/login",
+]
 jwt_expiry = 3600
 enable_signup = true
+
+[auth.email]
+enable_confirmations = true
+
+[auth.email.smtp]
+host = "smtp.gmail.com"
+port = 587
+user = "env(GMAIL_SMTP_USER)"
+pass = "env(GMAIL_SMTP_PASS)"
+admin_email = "env(GMAIL_SMTP_ADMIN_EMAIL)"
+sender_name = "Lumimar Homes"
 
 [edge_runtime]
 policy = "oneshot"

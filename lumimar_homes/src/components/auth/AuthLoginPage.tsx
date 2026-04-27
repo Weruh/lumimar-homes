@@ -38,6 +38,14 @@ export default function AuthLoginPage({
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
+    const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+    const authType = hashParams.get('type');
+
+    if (authType === 'invite' || authType === 'recovery') {
+      navigate(`/auth/set-password${window.location.hash}`, { replace: true });
+      return;
+    }
+
     if (!session || !role) {
       return;
     }
@@ -62,29 +70,29 @@ export default function AuthLoginPage({
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center p-6 md:p-12 lg:p-24 overflow-hidden font-body text-on-background antialiased">
+    <div className="relative min-h-screen flex items-center justify-center px-4 py-6 sm:px-6 md:px-8 md:py-8 overflow-y-auto no-scrollbar font-body text-on-background antialiased">
       <div className="fixed inset-0 z-0">
         <img src={backgroundImage} alt={portalTitle} className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-br from-[rgba(0,18,38,0.72)] to-[rgba(15,39,64,0.25)] backdrop-blur-[2px]" />
       </div>
 
-      <section className="relative z-10 w-full max-w-xl bg-surface/90 backdrop-blur-2xl rounded-xl shadow-ambient p-8 md:p-16 flex flex-col items-center">
-        <div className="mb-12 text-center">
-          <span className="font-headline font-black text-primary tracking-tighter text-3xl mb-8 block">{portalTitle}</span>
-          <h1 className="font-headline font-bold text-primary text-4xl md:text-5xl tracking-tight mb-4">{heading}</h1>
+      <section className="relative z-10 w-full max-w-[54rem] bg-surface/90 backdrop-blur-2xl rounded-xl shadow-ambient px-6 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12 lg:px-12 lg:py-14 flex flex-col items-center max-h-[calc(100dvh-2rem)] md:max-h-[calc(100dvh-4rem)] overflow-y-auto no-scrollbar">
+        <div className="mb-8 md:mb-10 text-center">
+          <span className="font-headline font-black text-primary tracking-tighter text-3xl mb-5 md:mb-6 block">{portalTitle}</span>
+          <h1 className="font-headline font-bold text-primary text-4xl md:text-5xl tracking-tight mb-3">{heading}</h1>
           <p className="text-on-surface-variant text-base md:text-lg max-w-sm leading-relaxed mx-auto">{description}</p>
         </div>
 
-        <form className="w-full space-y-8" onSubmit={handleSubmit}>
+        <form className="w-full space-y-6 md:space-y-7" onSubmit={handleSubmit}>
           <div className="group">
             <label className="block font-label text-[10px] uppercase tracking-[0.1em] font-semibold text-outline mb-2 ml-1">Email Address</label>
             <div className="relative">
               <input
                 type="email"
-                placeholder="Email address"
+                placeholder="owner@example.com"
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
-                className="w-full bg-transparent border-b border-outline-variant/30 py-4 px-1 text-primary focus:outline-none focus:border-primary transition-all duration-300 placeholder:text-outline/40"
+                className="w-full bg-transparent border-b border-outline-variant/30 py-3 px-1 text-primary focus:outline-none focus:border-primary transition-all duration-300 placeholder:text-outline/40"
                 required
               />
             </div>
@@ -101,7 +109,7 @@ export default function AuthLoginPage({
                 placeholder="Password"
                 value={password}
                 onChange={(event) => setPassword(event.target.value)}
-                className="w-full bg-transparent border-b border-outline-variant/30 py-4 px-1 text-primary focus:outline-none focus:border-primary transition-all duration-300 placeholder:text-outline/40"
+                className="w-full bg-transparent border-b border-outline-variant/30 py-3 px-1 text-primary focus:outline-none focus:border-primary transition-all duration-300 placeholder:text-outline/40"
                 required
               />
             </div>
@@ -113,11 +121,11 @@ export default function AuthLoginPage({
           {formError ? <p className="text-sm text-error">{formError}</p> : null}
           {!formError && authError ? <p className="text-sm text-error">{authError}</p> : null}
 
-          <div className="pt-6">
+          <div className="pt-4">
             <button
               type="submit"
               disabled={submitting || loading || !isConfigured}
-              className="w-full bg-primary-container text-surface py-5 rounded-lg font-semibold tracking-wide hover:bg-primary active:scale-[0.98] transition-all duration-300 shadow-ambient disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full bg-primary-container text-surface py-4 rounded-lg font-semibold tracking-wide hover:bg-primary active:scale-[0.98] transition-all duration-300 shadow-ambient disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {submitting ? 'Signing In...' : 'Sign In'}
             </button>
@@ -125,7 +133,7 @@ export default function AuthLoginPage({
         </form>
 
         {supportLink ? (
-          <div className="mt-12 text-center">
+          <div className="mt-8 md:mt-10 text-center">
             <p className="text-on-surface-variant/70 text-sm">
               {supportLink.prefix}
               <Link

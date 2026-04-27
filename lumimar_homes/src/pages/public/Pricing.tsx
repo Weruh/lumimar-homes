@@ -116,7 +116,7 @@ export default function Pricing() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="font-headline text-3xl text-primary mb-3">Lumimar vs. Managing It Yourself</h2>
-            <p className="text-on-surface-variant max-w-xl mx-auto">A qualitative view of how owner responsibilities and support levels differ across service models.</p>
+            <p className="text-on-surface-variant max-w-xl mx-auto">The numbers are clear. Professional management pays for itself.</p>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -133,9 +133,9 @@ export default function Pricing() {
               </thead>
               <tbody className="divide-y divide-outline-variant/10">
                 {[
-                  ['Operational consistency', 'Owner dependent', 'Mixed', 'Structured process'],
-                  ['Revenue optimisation', 'Manual', 'Agency dependent', 'Active management'],
-                  ['Reporting visibility', 'Manual tracking', 'Varies by agency', 'Owner portal and statements'],
+                  ['Average occupancy', '45-60%', '70-80%', '94%'],
+                  ['Revenue vs self-managed', ' - ', '+20-30%', '+65% avg'],
+                  ['Annual net yield', '6-9%', '9-12%', '14-18%'],
                   ['Guest communication', 'You, 24/7', 'Business hours', '24/7 by Lumimar'],
                   ['Dynamic pricing', 'Manual', 'Weekly updates', 'Daily AI-powered'],
                   ['Monthly reporting', 'Manual spreadsheet', 'PDF report', 'Live owner portal'],

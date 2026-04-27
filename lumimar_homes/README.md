@@ -28,10 +28,19 @@ The Vite app expects:
 
 Do not put the service role key in a client `.env` file.
 
-For GitHub Actions production builds, set these repository secrets as well:
+## Supabase Auth Gmail
 
-- `VITE_SUPABASE_URL`
-- `VITE_SUPABASE_ANON_KEY`
+Supabase Auth confirmation, recovery, magic-link, and invite emails are configured to send through Gmail SMTP in `supabase/config.toml`.
+
+Create a repo-root `.env` for local Supabase CLI runs:
+
+```env
+GMAIL_SMTP_USER=your-gmail-address@gmail.com
+GMAIL_SMTP_PASS=your-gmail-app-password
+GMAIL_SMTP_ADMIN_EMAIL=your-gmail-address@gmail.com
+```
+
+For the hosted Supabase project, set the same Gmail SMTP values in Authentication > Emails > SMTP provider. Do not add these values under Edge Function secrets; Supabase reserves the `SUPABASE_` prefix there, and Auth SMTP settings are configured separately from Edge Functions. Use a Gmail app password, not the regular account password.
 
 ## Supabase Backend
 
@@ -45,6 +54,34 @@ This repository now includes:
   Public edge function used by the `/apply` page.
 - `supabase/functions/invite-owner`
   Staff/admin-only edge function for inviting owner accounts.
+
+## Edge Function Secrets
+
+The `submit-owner-lead` function can send:
+
+- an internal notification email to your team
+- a confirmation email to the person who requested an estimate
+
+Set these Supabase secrets before deploying that function:
+
+- `PLUNK_API_KEY` or `PLUNK_PRIVATE_KEY`
+- `LEADS_FROM_EMAIL`
+- `LEADS_NOTIFY_EMAIL`
+- `LEADS_REPLY_TO_EMAIL` (optional)
+- `PUBLIC_SITE_URL`
+
+Use your Plunk secret key for `PLUNK_API_KEY` or `PLUNK_PRIVATE_KEY`. Public keys (`pk_*`) cannot send transactional email.
+
+Example:
+
+```powershell
+npx supabase secrets set ^
+  PLUNK_API_KEY=sk_your_plunk_secret_api_key ^
+  LEADS_FROM_EMAIL="Lumimar Homes <hello@home.lumimarbrand.com>" ^
+  LEADS_NOTIFY_EMAIL=hello@home.lumimarbrand.com ^
+  LEADS_REPLY_TO_EMAIL=hello@home.lumimarbrand.com ^
+  PUBLIC_SITE_URL=https://home.lumimarbrand.com
+```
 
 ## Auth Model
 
@@ -73,16 +110,4 @@ where id = 'YOUR_USER_UUID';
 
 ## Deployment Note
 
-The GitHub Actions workflow deploys the frontend only. Configure these repository secrets before deploying:
-
-- `VITE_SUPABASE_URL`
-- `VITE_SUPABASE_ANON_KEY`
-
-Deploy the Supabase backend manually when migrations or edge functions change:
-
-- `npx supabase link --project-ref YOUR_PROJECT_REF`
-- `npx supabase db push`
-- `npx supabase functions deploy submit-owner-lead`
-- `npx supabase functions deploy invite-owner`
-
-If you need invite emails to use a different public domain than `https://home.lumimarbrand.com`, set the `PUBLIC_SITE_URL` environment variable in Supabase Edge Functions settings.
+The existing GitHub Pages workflow builds the frontend only. If you deploy this project with the owner portal and lead capture enabled, point the frontend at a hosted Supabase project and deploy the edge functions there as well.

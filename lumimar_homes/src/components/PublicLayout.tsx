@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 
 const WA_LINK = `https://wa.me/254705551021`;
-const EMAIL = 'hello@lumimarbrand.co.ke';
+const EMAIL = 'hello@home.lumimarbrand.com';
 
 const MOBILE_LINKS = [
   { to: '/full-management', label: 'Full Management' },

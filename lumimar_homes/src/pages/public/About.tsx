@@ -29,12 +29,12 @@ export default function About() {
             </p>
             <div className="grid grid-cols-2 gap-8 border-t border-outline-variant/20 pt-8">
               <div>
-                <h4 className="text-4xl font-bold text-primary mb-2">Local</h4>
-                <p className="text-sm text-on-surface-variant uppercase tracking-widest">Coast-Based Operations</p>
+                <h4 className="text-4xl font-bold text-primary mb-2">40+</h4>
+                <p className="text-sm text-on-surface-variant uppercase tracking-widest">Properties Managed</p>
               </div>
               <div>
-                <h4 className="text-4xl font-bold text-primary mb-2">Owner</h4>
-                <p className="text-sm text-on-surface-variant uppercase tracking-widest">First Reporting Standard</p>
+                <h4 className="text-4xl font-bold text-primary mb-2">4.9</h4>
+                <p className="text-sm text-on-surface-variant uppercase tracking-widest">Average Guest Rating</p>
               </div>
             </div>
           </div>
@@ -51,10 +51,10 @@ export default function About() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { location: 'Diani Beach', icon: 'surfing', insight: 'Leisure demand, event calendars, and seasonal travel patterns all shape pricing and positioning here.', tag: 'Seasonal Demand' },
-              { location: 'Watamu', icon: 'water', insight: 'Eco-tourism and destination travel influence the kind of guests who book and what they value.', tag: 'Destination Travel' },
-              { location: 'Kilifi', icon: 'sailing', insight: 'Longer-stay demand and lifestyle travel make listing strategy different from pure holiday inventory.', tag: 'Longer Stays' },
-              { location: 'Malindi', icon: 'flight', insight: 'Cultural travel and repeat regional demand require a more local, relationship-driven operating approach.', tag: 'Repeat Demand' },
+              { location: 'Diani Beach', icon: 'surfing', insight: 'Peaks 40% above baseline in Q1 during triathlon and safari season. Year-round demand from South African and European leisure travellers.', tag: 'Peak: JanMar' },
+              { location: 'Watamu', icon: 'water', insight: 'Commands a year-round eco-premium due to the Watamu Marine National Park. International eco-tourists and divers pay significantly above average nightly rates.', tag: 'Eco Premium' },
+              { location: 'Kilifi', icon: 'sailing', insight: 'Strong long-stay demand from October to March. Creek-view properties attract remote professionals and expats seeking 3090 day stays at premium rates.', tag: 'Long-Stay Hub' },
+              { location: 'Malindi', icon: 'flight', insight: 'Consistent Italian and European visitor base creates predictable seasonal demand. Heritage and cultural properties outperform standard listings here.', tag: 'Italian Market' },
             ].map(({ location, icon, insight, tag }) => (
               <div key={location} className="bg-white p-8 rounded-xl shadow-ambient border border-outline-variant/10 flex flex-col">
                 <div className="flex items-center justify-between mb-4">
@@ -73,9 +73,9 @@ export default function About() {
         <div className="max-w-3xl mx-auto">
           <span className="material-symbols-outlined text-tertiary-fixed-dim text-5xl mb-6">format_quote</span>
           <h3 className="text-3xl md:text-4xl font-light leading-snug mb-8">
-            "Owners deserve clear communication, disciplined operations, and honest reporting instead of vague promises."
+            "Lumimar transformed our underperforming family villa into a sought-after destination. Their attention to detail and transparent reporting gave us complete peace of mind."
           </h3>
-          <p className="text-primary-fixed-dim uppercase tracking-widest text-sm font-bold">Lumimar Service Standard</p>
+          <p className="text-primary-fixed-dim uppercase tracking-widest text-sm font-bold">The Kariuki Family, Diani</p>
         </div>
       </section>
 
@@ -105,11 +105,11 @@ export default function About() {
               +254 705 551 021
             </a>
             <a
-              href="mailto:hello@lumimarbrand.co.ke"
+              href="mailto:hello@home.lumimarbrand.com"
               className="inline-flex items-center justify-center gap-3 border border-outline-variant/30 text-primary px-10 py-4 rounded-lg font-bold hover:bg-surface-container transition-colors"
             >
               <span className="material-symbols-outlined">mail</span>
-              hello@lumimarbrand.co.ke
+              hello@home.lumimarbrand.com
             </a>
           </div>
         </div>
