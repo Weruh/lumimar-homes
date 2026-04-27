@@ -22,6 +22,61 @@ const json = (status: number, body: Record<string, unknown>) =>
   });
 
 const sanitize = (value: string | undefined) => value?.trim() ?? '';
+const errorMessage = (error: unknown) => {
+  if (typeof error === 'string') {
+    return error === '{}' ? null : error;
+  }
+
+  if (error instanceof Error) {
+    return error.message || error.name || null;
+  }
+
+  if (error && typeof error === 'object') {
+    const record = error as Record<string, unknown>;
+    const knownFields = [record.message, record.error, record.details, record.hint, record.code, record.status, record.name]
+      .filter((value): value is string | number => typeof value === 'string' || typeof value === 'number')
+      .map(String)
+      .filter((value) => value.trim() && value !== '{}');
+
+    if (knownFields.length > 0) {
+      return knownFields.join(' ');
+    }
+
+    try {
+      const allProperties = Object.fromEntries(
+        Object.getOwnPropertyNames(error)
+          .map((key) => [key, (record as Record<string, unknown>)[key]])
+          .filter(([, value]) => value !== undefined),
+      );
+      const serializedProperties = JSON.stringify(allProperties);
+
+      if (serializedProperties && serializedProperties !== '{}') {
+        return serializedProperties;
+      }
+    } catch {
+      // Fall through to plain JSON serialization.
+    }
+
+    try {
+      const serialized = JSON.stringify(error);
+      return serialized && serialized !== '{}' ? serialized : null;
+    } catch {
+      return null;
+    }
+  }
+
+  return null;
+};
+
+const errorJson = (status: number, error: string, details?: unknown) => {
+  const detailMessage = errorMessage(details);
+
+  return json(status, {
+    error,
+    ...(detailMessage ? { details: detailMessage } : {}),
+  });
+};
+
 const getBaseUrl = (request: Request) => {
   const configuredSiteUrl = sanitize(Deno.env.get('PUBLIC_SITE_URL')) || DEFAULT_SITE_URL;
   const requestOrigin = sanitize(request.headers.get('origin'));
@@ -84,7 +139,7 @@ Deno.serve(async (request) => {
     .single();
 
   if (profileError || !profile || !['staff', 'admin'].includes(profile.role)) {
-    return json(403, { error: 'Only staff or admins can invite owners.' });
+    return errorJson(403, 'Only staff or admins can invite owners.', profileError);
   }
 
   let payload: InvitePayload;
@@ -109,6 +164,24 @@ Deno.serve(async (request) => {
     },
   });
 
+  const { data: existingUsers, error: listUsersError } = await admin.auth.admin.listUsers({
+    page: 1,
+    perPage: 1000,
+  });
+
+  if (listUsersError) {
+    return errorJson(500, 'Failed to check whether this applicant already has an account.', listUsersError);
+  }
+
+  const existingUser = existingUsers.users.find((user) => user.email?.toLowerCase() === email);
+
+  if (existingUser) {
+    return errorJson(
+      409,
+      'This email already belongs to an existing Supabase user. Use a different applicant email, or update that user/owner record manually.',
+    );
+  }
+
   const { data: invited, error: inviteError } = await admin.auth.admin.inviteUserByEmail(email, {
     data: {
       full_name: fullName,
@@ -117,7 +190,18 @@ Deno.serve(async (request) => {
   });
 
   if (inviteError || !invited.user) {
-    return json(500, { error: inviteError?.message ?? 'Failed to invite owner.' });
+    const details = errorMessage(inviteError);
+    const alreadyRegistered = details?.toLowerCase().includes('already') || details?.toLowerCase().includes('registered');
+
+    return errorJson(
+      alreadyRegistered ? 409 : 500,
+      alreadyRegistered
+        ? 'This email already belongs to an existing Supabase user. Use a different applicant email, or update that user/owner record manually.'
+        : details
+          ? 'Failed to send the owner invite.'
+          : 'Supabase Auth could not send the invite email. Check Authentication > Emails > SMTP provider in the Supabase Dashboard, then try again.',
+      inviteError,
+    );
   }
 
   const { error: profileUpsertError } = await admin.schema('lumimar').from('profiles').upsert({
@@ -128,28 +212,36 @@ Deno.serve(async (request) => {
   });
 
   if (profileUpsertError) {
-    return json(500, { error: 'Failed to create owner profile.' });
+    return errorJson(500, 'Failed to create owner profile.', profileUpsertError);
   }
 
-  const { error: ownerError } = await admin
+  const { data: matchingOwners, error: findOwnerError } = await admin
     .schema('lumimar')
     .from('owners')
-    .upsert(
-      {
-        primary_contact_user_id: invited.user.id,
-        display_name: displayName,
-        legal_name: sanitize(payload.legalName) || null,
-        email,
-        phone: sanitize(payload.phone) || null,
-        primary_residence: sanitize(payload.primaryResidence) || null,
-      },
-      {
-        onConflict: 'primary_contact_user_id',
-      },
-    );
+    .select('id')
+    .eq('email', email)
+    .limit(1);
+
+  if (findOwnerError) {
+    return errorJson(500, 'Failed to check for an existing owner record.', findOwnerError);
+  }
+
+  const ownerRecord = {
+    primary_contact_user_id: invited.user.id,
+    display_name: displayName,
+    legal_name: sanitize(payload.legalName) || null,
+    email,
+    phone: sanitize(payload.phone) || null,
+    primary_residence: sanitize(payload.primaryResidence) || null,
+  };
+
+  const existingOwnerId = matchingOwners?.[0]?.id;
+  const { error: ownerError } = existingOwnerId
+    ? await admin.schema('lumimar').from('owners').update(ownerRecord).eq('id', existingOwnerId)
+    : await admin.schema('lumimar').from('owners').insert(ownerRecord);
 
   if (ownerError) {
-    return json(500, { error: 'Failed to create owner record.' });
+    return errorJson(500, 'Failed to save owner record.', ownerError);
   }
 
   return json(200, { ok: true, userId: invited.user.id });

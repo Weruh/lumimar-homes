@@ -1,106 +1,262 @@
+import { useEffect, useMemo, useState } from 'react';
+import { lumimar } from '../../lib/supabase';
+
+type JobStatus = 'scheduled' | 'in_progress' | 'completed' | 'cancelled';
+
+type Property = {
+  id: string;
+  name: string;
+  location_label: string;
+};
+
+type CleaningJob = {
+  id: string;
+  property_id: string;
+  scheduled_start: string;
+  scheduled_end: string;
+  assigned_team: string | null;
+  status: JobStatus;
+  notes: string | null;
+  properties?: Property | null;
+};
+
+const STATUS_CLASSES: Record<JobStatus, string> = {
+  scheduled: 'bg-surface-container text-on-surface-variant',
+  in_progress: 'bg-amber-50 text-amber-700',
+  completed: 'bg-emerald-50 text-emerald-700',
+  cancelled: 'bg-rose-50 text-rose-700',
+};
+
+function formatTime(value: string) {
+  return new Intl.DateTimeFormat('en-KE', {
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+  }).format(new Date(value));
+}
+
+function toLocalInputValue(date: Date) {
+  const offset = date.getTimezoneOffset() * 60000;
+  return new Date(date.getTime() - offset).toISOString().slice(0, 16);
+}
+
 export default function InternalCleaning() {
+  const [jobs, setJobs] = useState<CleaningJob[]>([]);
+  const [properties, setProperties] = useState<Property[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState<string | null>(null);
+  const [showForm, setShowForm] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
+  const [form, setForm] = useState({
+    property_id: '',
+    scheduled_start: toLocalInputValue(new Date()),
+    scheduled_end: toLocalInputValue(new Date(Date.now() + 3 * 60 * 60 * 1000)),
+    assigned_team: '',
+    notes: '',
+  });
+
+  const loadData = async () => {
+    if (!lumimar) {
+      setError('Supabase is not configured.');
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
+    setError(null);
+
+    const [jobsResult, propertiesResult] = await Promise.all([
+      (lumimar as any)
+        .from('cleaning_jobs')
+        .select('*, properties(id, name, location_label)')
+        .order('scheduled_start', { ascending: true }),
+      (lumimar as any).from('properties').select('id, name, location_label').order('name'),
+    ]);
+
+    if (jobsResult.error) {
+      setError(jobsResult.error.message);
+      setJobs([]);
+    } else {
+      setJobs((jobsResult.data ?? []) as CleaningJob[]);
+    }
+
+    if (propertiesResult.error) {
+      setError(propertiesResult.error.message);
+      setProperties([]);
+    } else {
+      const nextProperties = (propertiesResult.data ?? []) as Property[];
+      setProperties(nextProperties);
+      setForm((current) => ({ ...current, property_id: current.property_id || nextProperties[0]?.id || '' }));
+    }
+
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    void loadData();
+  }, []);
+
+  const totals = useMemo(
+    () => ({
+      scheduled: jobs.filter((job) => job.status === 'scheduled').length,
+      active: jobs.filter((job) => job.status === 'in_progress').length,
+      completed: jobs.filter((job) => job.status === 'completed').length,
+      teams: new Set(jobs.map((job) => job.assigned_team).filter(Boolean)).size,
+    }),
+    [jobs],
+  );
+
+  const updateStatus = async (job: CleaningJob, status: JobStatus) => {
+    if (!lumimar || job.status === status) {
+      return;
+    }
+
+    setSaving(job.id);
+    setError(null);
+    setNotice(null);
+
+    const { error: updateError } = await (lumimar as any).from('cleaning_jobs').update({ status }).eq('id', job.id);
+
+    if (updateError) {
+      setError(updateError.message);
+    } else {
+      setJobs((current) => current.map((item) => (item.id === job.id ? { ...item, status } : item)));
+      setNotice(`Cleaning job marked ${status.replace('_', ' ')}.`);
+    }
+
+    setSaving(null);
+  };
+
+  const createJob = async () => {
+    if (!lumimar) {
+      return;
+    }
+
+    setSaving('new');
+    setError(null);
+    setNotice(null);
+
+    const { error: insertError } = await (lumimar as any).from('cleaning_jobs').insert({
+      property_id: form.property_id,
+      scheduled_start: new Date(form.scheduled_start).toISOString(),
+      scheduled_end: new Date(form.scheduled_end).toISOString(),
+      assigned_team: form.assigned_team || null,
+      notes: form.notes || null,
+      status: 'scheduled',
+    });
+
+    if (insertError) {
+      setError(insertError.message);
+    } else {
+      setNotice('Cleaning dispatch created.');
+      setShowForm(false);
+      await loadData();
+    }
+
+    setSaving(null);
+  };
+
   return (
     <div className="space-y-8">
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
           <h2 className="text-3xl font-headline font-bold text-primary">Cleaning Operations</h2>
-          <p className="text-sm text-on-surface-variant mt-1">Manage turnover schedules and cleaning teams.</p>
+          <p className="mt-1 text-sm text-on-surface-variant">Manage turnover schedules and cleaning teams.</p>
         </div>
-        <button className="bg-primary text-white px-6 py-3 rounded-lg font-bold text-sm shadow-md hover:bg-primary/90 transition-colors">
-          Dispatch Team
-        </button>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="bg-surface-container-lowest p-6 rounded-2xl shadow-ambient border-l-4 border-amber-500">
-          <p className="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2">Pending Today</p>
-          <div className="flex items-end justify-between">
-            <h3 className="text-3xl font-bold text-primary">12</h3>
-            <span className="text-xs font-bold text-amber-600 bg-amber-50 px-2 py-1 rounded-md">High Volume</span>
-          </div>
-        </div>
-        <div className="bg-surface-container-lowest p-6 rounded-2xl shadow-ambient border-l-4 border-emerald-500">
-          <p className="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2">Completed</p>
-          <div className="flex items-end justify-between">
-            <h3 className="text-3xl font-bold text-primary">8</h3>
-            <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-md">On Schedule</span>
-          </div>
-        </div>
-        <div className="bg-surface-container-lowest p-6 rounded-2xl shadow-ambient border-l-4 border-blue-500">
-          <p className="text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2">Active Teams</p>
-          <div className="flex items-end justify-between">
-            <h3 className="text-3xl font-bold text-primary">5</h3>
-            <span className="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-md">Fully Deployed</span>
-          </div>
+        <div className="flex gap-2">
+          <button type="button" onClick={() => void loadData()} className="rounded-lg border border-outline-variant/30 px-5 py-3 text-sm font-bold text-primary">
+            Refresh
+          </button>
+          <button type="button" onClick={() => setShowForm((value) => !value)} className="rounded-lg bg-primary px-6 py-3 text-sm font-bold text-white shadow-md">
+            Dispatch Team
+          </button>
         </div>
       </div>
 
-      <div className="bg-surface-container-lowest rounded-3xl shadow-ambient overflow-hidden">
-        <div className="p-6 border-b border-outline-variant/20 flex justify-between items-center bg-surface-container/30">
-          <h3 className="font-bold text-primary">Today's Schedule</h3>
-          <div className="flex gap-2">
-            <button className="px-4 py-2 bg-white rounded-lg border border-outline-variant/30 text-sm font-bold text-primary shadow-sm">Map View</button>
-            <button className="px-4 py-2 bg-surface-container rounded-lg text-sm font-bold text-primary border border-outline-variant/10">List View</button>
+      {error ? <p className="rounded-lg bg-rose-50 px-4 py-3 text-sm text-rose-700">{error}</p> : null}
+      {notice ? <p className="rounded-lg bg-emerald-50 px-4 py-3 text-sm text-emerald-700">{notice}</p> : null}
+
+      {showForm ? (
+        <div className="rounded-xl bg-surface-container-lowest p-6 shadow-ambient">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
+            <select value={form.property_id} onChange={(event) => setForm({ ...form, property_id: event.target.value })} className="rounded-lg border border-outline-variant/30 px-4 py-3 text-sm md:col-span-2">
+              {properties.map((property) => (
+                <option key={property.id} value={property.id}>
+                  {property.name}
+                </option>
+              ))}
+            </select>
+            <input type="datetime-local" value={form.scheduled_start} onChange={(event) => setForm({ ...form, scheduled_start: event.target.value })} className="rounded-lg border border-outline-variant/30 px-4 py-3 text-sm" />
+            <input type="datetime-local" value={form.scheduled_end} onChange={(event) => setForm({ ...form, scheduled_end: event.target.value })} className="rounded-lg border border-outline-variant/30 px-4 py-3 text-sm" />
+            <input type="text" value={form.assigned_team} onChange={(event) => setForm({ ...form, assigned_team: event.target.value })} placeholder="Team name" className="rounded-lg border border-outline-variant/30 px-4 py-3 text-sm" />
           </div>
+          <textarea value={form.notes} onChange={(event) => setForm({ ...form, notes: event.target.value })} placeholder="Dispatch notes" className="mt-4 w-full rounded-lg border border-outline-variant/30 px-4 py-3 text-sm" />
+          <button type="button" onClick={() => void createJob()} disabled={saving === 'new' || !form.property_id} className="mt-4 rounded-lg bg-primary px-6 py-3 text-sm font-bold text-white disabled:opacity-60">
+            Create Dispatch
+          </button>
+        </div>
+      ) : null}
+
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="rounded-xl border-l-4 border-amber-500 bg-surface-container-lowest p-6 shadow-ambient">
+          <p className="mb-2 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Scheduled</p>
+          <h3 className="text-3xl font-bold text-primary">{totals.scheduled}</h3>
+        </div>
+        <div className="rounded-xl border-l-4 border-emerald-500 bg-surface-container-lowest p-6 shadow-ambient">
+          <p className="mb-2 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Completed</p>
+          <h3 className="text-3xl font-bold text-primary">{totals.completed}</h3>
+        </div>
+        <div className="rounded-xl border-l-4 border-blue-500 bg-surface-container-lowest p-6 shadow-ambient">
+          <p className="mb-2 text-xs font-bold uppercase tracking-widest text-on-surface-variant">Active Teams</p>
+          <h3 className="text-3xl font-bold text-primary">{totals.teams}</h3>
+        </div>
+      </div>
+
+      <div className="overflow-hidden rounded-xl bg-surface-container-lowest shadow-ambient">
+        <div className="border-b border-outline-variant/20 bg-surface-container/30 p-6">
+          <h3 className="font-bold text-primary">Cleaning Schedule</h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-left">
             <thead>
-              <tr className="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant/70 border-b border-outline-variant/10">
+              <tr className="border-b border-outline-variant/10 text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/70">
                 <th className="p-6">Time Window</th>
                 <th className="p-6">Property</th>
-                <th className="p-6">Type</th>
                 <th className="p-6">Assigned Team</th>
                 <th className="p-6">Status</th>
                 <th className="p-6 text-right">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-outline-variant/10">
-              <tr className="hover:bg-surface-container-low transition-colors">
-                <td className="p-6 text-sm font-medium">09:00 - 12:00</td>
-                <td className="p-6">
-                  <p className="font-bold text-primary text-sm">Diani Azure Loft</p>
-                  <p className="text-xs text-on-surface-variant">Unit 4</p>
-                </td>
-                <td className="p-6 text-sm">Turnover</td>
-                <td className="p-6 text-sm">Team Alpha</td>
-                <td className="p-6">
-                  <span className="px-3 py-1 bg-emerald-50 text-emerald-700 rounded-full text-[10px] font-bold uppercase tracking-wide">Completed</span>
-                </td>
-                <td className="p-6 text-right">
-                  <button className="text-primary font-bold text-xs hover:underline">View Report</button>
-                </td>
-              </tr>
-              <tr className="hover:bg-surface-container-low transition-colors">
-                <td className="p-6 text-sm font-medium">11:00 - 14:00</td>
-                <td className="p-6">
-                  <p className="font-bold text-primary text-sm">Palm Suite 402</p>
-                  <p className="text-xs text-on-surface-variant">Nyali</p>
-                </td>
-                <td className="p-6 text-sm">Turnover</td>
-                <td className="p-6 text-sm">Team Beta</td>
-                <td className="p-6">
-                  <span className="px-3 py-1 bg-amber-50 text-amber-700 rounded-full text-[10px] font-bold uppercase tracking-wide">In Progress</span>
-                </td>
-                <td className="p-6 text-right">
-                  <button className="text-primary font-bold text-xs hover:underline">Update</button>
-                </td>
-              </tr>
-              <tr className="hover:bg-surface-container-low transition-colors">
-                <td className="p-6 text-sm font-medium">14:00 - 17:00</td>
-                <td className="p-6">
-                  <p className="font-bold text-primary text-sm">The Sands 12B</p>
-                  <p className="text-xs text-on-surface-variant">Watamu</p>
-                </td>
-                <td className="p-6 text-sm">Deep Clean</td>
-                <td className="p-6 text-sm">Team Gamma</td>
-                <td className="p-6">
-                  <span className="px-3 py-1 bg-surface-container text-on-surface-variant rounded-full text-[10px] font-bold uppercase tracking-wide">Scheduled</span>
-                </td>
-                <td className="p-6 text-right">
-                  <button className="text-primary font-bold text-xs hover:underline">Reassign</button>
-                </td>
-              </tr>
+              {loading ? (
+                <tr><td colSpan={5} className="p-8 text-center text-sm text-on-surface-variant">Loading cleaning jobs...</td></tr>
+              ) : jobs.length === 0 ? (
+                <tr><td colSpan={5} className="p-8 text-center text-sm text-on-surface-variant">No cleaning jobs yet.</td></tr>
+              ) : (
+                jobs.map((job) => (
+                  <tr key={job.id} className="hover:bg-surface-container-low transition-colors">
+                    <td className="p-6 text-sm font-medium">{formatTime(job.scheduled_start)} - {formatTime(job.scheduled_end)}</td>
+                    <td className="p-6">
+                      <p className="text-sm font-bold text-primary">{job.properties?.name ?? 'Unknown property'}</p>
+                      <p className="text-xs text-on-surface-variant">{job.properties?.location_label ?? job.notes ?? 'No location'}</p>
+                    </td>
+                    <td className="p-6 text-sm">{job.assigned_team ?? 'Unassigned'}</td>
+                    <td className="p-6">
+                      <span className={`rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-wide ${STATUS_CLASSES[job.status]}`}>{job.status.replace('_', ' ')}</span>
+                    </td>
+                    <td className="p-6 text-right">
+                      <select value={job.status} disabled={saving === job.id} onChange={(event) => void updateStatus(job, event.target.value as JobStatus)} className="rounded-lg border border-outline-variant/30 bg-white px-3 py-2 text-xs font-bold text-primary disabled:opacity-60">
+                        <option value="scheduled">Scheduled</option>
+                        <option value="in_progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                      </select>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
