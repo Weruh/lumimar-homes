@@ -11,6 +11,8 @@ type InvitePayload = {
 };
 
 const DEFAULT_SITE_URL = 'https://home.lumimarbrand.com';
+const AUTH_EMAIL_SETUP_MESSAGE =
+  'Supabase Auth could not send the invite email. Check Authentication > Emails > SMTP provider in the Supabase Dashboard, then try again.';
 
 const json = (status: number, body: Record<string, unknown>) =>
   new Response(JSON.stringify(body), {
@@ -193,13 +195,18 @@ Deno.serve(async (request) => {
     const details = errorMessage(inviteError);
     const alreadyRegistered = details?.toLowerCase().includes('already') || details?.toLowerCase().includes('registered');
 
+    console.error('Owner invite failed', {
+      email,
+      details,
+      inviteError,
+      hasInvitedUser: Boolean(invited.user),
+    });
+
     return errorJson(
       alreadyRegistered ? 409 : 500,
       alreadyRegistered
         ? 'This email already belongs to an existing Supabase user. Use a different applicant email, or update that user/owner record manually.'
-        : details
-          ? 'Failed to send the owner invite.'
-          : 'Supabase Auth could not send the invite email. Check Authentication > Emails > SMTP provider in the Supabase Dashboard, then try again.',
+        : AUTH_EMAIL_SETUP_MESSAGE,
       inviteError,
     );
   }

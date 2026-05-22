@@ -70,13 +70,13 @@ export default function AuthLoginPage({
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center px-4 py-6 sm:px-6 md:px-8 md:py-8 overflow-y-auto no-scrollbar font-body text-on-background antialiased">
+    <div className="relative h-dvh flex items-center justify-center px-4 py-4 sm:px-6 md:px-8 overflow-hidden font-body text-on-background antialiased">
       <div className="fixed inset-0 z-0">
         <img src={backgroundImage} alt={portalTitle} className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-br from-[rgba(0,18,38,0.72)] to-[rgba(15,39,64,0.25)] backdrop-blur-[2px]" />
       </div>
 
-      <section className="relative z-10 w-full max-w-[54rem] bg-surface/90 backdrop-blur-2xl rounded-xl shadow-ambient px-6 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12 lg:px-12 lg:py-14 flex flex-col items-center max-h-[calc(100dvh-2rem)] md:max-h-[calc(100dvh-4rem)] overflow-y-auto no-scrollbar">
+      <section className="relative z-10 w-full max-w-[54rem] bg-surface/90 backdrop-blur-2xl rounded-xl shadow-ambient px-6 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12 lg:px-12 lg:py-14 flex flex-col items-center max-h-[calc(100dvh-2rem)] overflow-y-auto no-scrollbar">
         <div className="mb-8 md:mb-10 text-center">
           <span className="font-headline font-black text-primary tracking-tighter text-3xl mb-5 md:mb-6 block">{portalTitle}</span>
           <h1 className="font-headline font-bold text-primary text-4xl md:text-5xl tracking-tight mb-3">{heading}</h1>
