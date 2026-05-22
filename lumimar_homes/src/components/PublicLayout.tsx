@@ -90,6 +90,10 @@ export default function PublicLayout() {
             ))}
           </nav>
           <div className="p-8 space-y-4">
+            <Link to="/owner/login" onClick={() => setMobileOpen(false)} className="flex w-full items-center justify-center gap-2 bg-[#e9c178] text-[#001226] py-4 rounded-xl font-bold">
+              <span className="material-symbols-outlined text-xl">account_circle</span>
+              Portal
+            </Link>
             <Link to="/apply" onClick={() => setMobileOpen(false)} className="block w-full bg-[#0F2740] text-white py-4 rounded-xl text-center font-bold">Get Estimate</Link>
             <a href={WA_LINK} className="flex items-center justify-center gap-2 bg-[#25D366] text-white py-4 rounded-xl font-bold"><WhatsAppIcon size={20}/> WhatsApp</a>
           </div>

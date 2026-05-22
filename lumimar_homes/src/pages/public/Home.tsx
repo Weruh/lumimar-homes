@@ -28,6 +28,45 @@ const faqs = [
   },
 ];
 
+const propertyGallery = [
+  {
+    title: 'Shanzu 2BR Penthouse',
+    location: 'Shanzu, Mombasa',
+    price: 'KSh 12,000 / night',
+    image: '/images/s6/2.jpg',
+  },
+  {
+    title: 'Coastal Villa Suite',
+    location: 'Kenya Coast',
+    price: 'KSh 18,000 / night',
+    image: '/images/s5/3.jpg',
+  },
+  {
+    title: 'Ocean View Apartment',
+    location: 'Shanzu, Mombasa',
+    price: 'KSh 9,500 / night',
+    image: '/images/s9/1.jpg',
+  },
+  {
+    title: 'Modern Guest Residence',
+    location: 'Shanzu, Mombasa',
+    price: 'KSh 10,500 / night',
+    image: '/images/s8/4.jpg',
+  },
+  {
+    title: 'Penthouse Living Room',
+    location: 'Kenya Coast',
+    price: 'KSh 14,000 / night',
+    image: '/images/s11/2.jpg',
+  },
+  {
+    title: 'Managed Holiday Home',
+    location: 'Shanzu, Mombasa',
+    price: 'KSh 16,000 / night',
+    image: '/images/s12/1.jpg',
+  },
+];
+
 export default function Home() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
@@ -84,7 +123,50 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Diaspora callout strip ── */}
+      {/* Property gallery */}
+      <section className="py-14 px-6 md:px-8 bg-surface">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-8">
+            <div>
+              <span className="font-label text-xs uppercase tracking-[0.22em] text-on-surface-variant">
+                Managed Properties
+              </span>
+              <h2 className="font-headline text-3xl md:text-4xl text-primary mt-3 leading-tight">
+                Homes guests can see themselves staying in.
+              </h2>
+            </div>
+            <p className="text-sm text-on-surface-variant max-w-sm leading-relaxed">
+              A preview of Lumimar-managed coastal homes, staged and photographed to convert browsers into booked guests.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {propertyGallery.map((property) => (
+              <article key={property.title} className="group overflow-hidden rounded-lg bg-white shadow-ambient">
+                <div className="aspect-[16/10] overflow-hidden bg-surface-container">
+                  <img
+                    src={property.image}
+                    alt={property.title}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-4">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="font-bold text-primary leading-snug">{property.title}</p>
+                      <p className="text-sm text-on-surface-variant mt-1">{property.location}</p>
+                    </div>
+                    <p className="shrink-0 text-right text-sm font-bold text-tertiary whitespace-nowrap">{property.price}</p>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Diaspora callout strip */}
       <section className="bg-tertiary-fixed-dim py-10 px-8">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
