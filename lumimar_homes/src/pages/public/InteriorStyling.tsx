@@ -6,7 +6,7 @@ export default function InteriorStyling() {
       <section className="relative min-h-[795px] flex items-center px-8 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img src="/images/s8/1.jpg" alt="Shanzu property interior" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/60 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/42 to-transparent"></div>
         </div>
         <div className="relative z-10 max-w-4xl">
           <p className="font-label text-tertiary-fixed-dim tracking-[0.2em] uppercase mb-4">Lumimar Living</p>

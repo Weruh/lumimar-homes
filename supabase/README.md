@@ -8,6 +8,7 @@ This folder contains the Supabase backend for Lumimar Homes: database schema, ro
 - `migrations/202604180001_init_backend.sql` - Initial backend migration.
 - `seed.sql` - Local seed data for sample owner lead inquiries.
 - `functions/submit-owner-lead` - Public lead capture function used by the website apply flow.
+- `functions/submit-booking-request` - Public suite booking request and Paystack checkout initializer.
 - `functions/invite-owner` - Staff/admin-only function for inviting owner portal users.
 - `functions/_shared/cors.ts` - Shared CORS headers for Edge Functions.
 
@@ -195,6 +196,29 @@ Expected payload:
 }
 ```
 
+### `submit-booking-request`
+
+Public function used by the suite booking forms.
+
+When `initiatePayment` is `true`, the function validates dates, checks for overlapping paid or unexpired payment-pending bookings for the same suite, creates a booking hold, initializes Paystack, and returns an authorization URL for checkout.
+
+After Paystack redirects the guest back to the suite page, `verify-paystack-payment` verifies the returned reference server-side and marks the booking request as paid only when the transaction status, reference, amount, and currency match.
+
+Additional payment secrets:
+
+```powershell
+npx supabase secrets set `
+  PAYSTACK_SECRET_KEY=sk_test_your_paystack_secret_key `
+  PUBLIC_SITE_URL=https://home.lumimarbrand.com
+```
+
+Deploy it with:
+
+```powershell
+npx supabase functions deploy submit-booking-request
+npx supabase functions deploy verify-paystack-payment
+```
+
 ## Auth Email
 
 Auth email is configured in `config.toml` to use Gmail SMTP for confirmation, recovery, magic link, and invite emails.
@@ -227,6 +251,8 @@ Deploy functions:
 
 ```powershell
 npx supabase functions deploy submit-owner-lead
+npx supabase functions deploy submit-booking-request
+npx supabase functions deploy verify-paystack-payment
 npx supabase functions deploy invite-owner
 ```
 
@@ -238,7 +264,8 @@ npx supabase secrets set `
   LEADS_FROM_EMAIL="Lumimar Homes <hello@home.lumimarbrand.com>" `
   LEADS_NOTIFY_EMAIL=hello@home.lumimarbrand.com `
   LEADS_REPLY_TO_EMAIL=hello@home.lumimarbrand.com `
-  PUBLIC_SITE_URL=https://home.lumimarbrand.com
+  PUBLIC_SITE_URL=https://home.lumimarbrand.com `
+  PAYSTACK_SECRET_KEY=sk_test_your_paystack_secret_key
 ```
 
 ## Notes

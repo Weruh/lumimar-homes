@@ -57,5 +57,11 @@ policy = "oneshot"
 [functions.submit-owner-lead]
 verify_jwt = false
 
+[functions.submit-booking-request]
+verify_jwt = false
+
+[functions.verify-paystack-payment]
+verify_jwt = false
+
 [functions.invite-owner]
 verify_jwt = true

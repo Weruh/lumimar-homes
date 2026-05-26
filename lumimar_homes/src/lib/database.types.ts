@@ -10,6 +10,129 @@ export type Database = {
   };
   lumimar: {
     Tables: {
+      booking_requests: {
+        Row: {
+          admin_notes: string | null;
+          check_in: string | null;
+          check_out: string | null;
+          created_at: string;
+          guest_email: string;
+          guest_name: string;
+          guest_phone: string;
+          guests: number;
+          id: string;
+          last_response_at: string | null;
+          message: string | null;
+          metadata: Json;
+          payment_access_code: string | null;
+          payment_amount_kes: number | null;
+          payment_authorization_url: string | null;
+          payment_currency: string;
+          payment_expires_at: string | null;
+          payment_gateway_response: Json | null;
+          payment_reference: string | null;
+          payment_status: string;
+          payment_verified_at: string | null;
+          room_type: string;
+          status: string;
+          suite_name: string;
+          updated_at: string;
+        };
+        Insert: {
+          admin_notes?: string | null;
+          check_in?: string | null;
+          check_out?: string | null;
+          created_at?: string;
+          guest_email: string;
+          guest_name: string;
+          guest_phone: string;
+          guests?: number;
+          id?: string;
+          last_response_at?: string | null;
+          message?: string | null;
+          metadata?: Json;
+          payment_access_code?: string | null;
+          payment_amount_kes?: number | null;
+          payment_authorization_url?: string | null;
+          payment_currency?: string;
+          payment_expires_at?: string | null;
+          payment_gateway_response?: Json | null;
+          payment_reference?: string | null;
+          payment_status?: string;
+          payment_verified_at?: string | null;
+          room_type: string;
+          status?: string;
+          suite_name: string;
+          updated_at?: string;
+        };
+        Update: {
+          admin_notes?: string | null;
+          check_in?: string | null;
+          check_out?: string | null;
+          created_at?: string;
+          guest_email?: string;
+          guest_name?: string;
+          guest_phone?: string;
+          guests?: number;
+          id?: string;
+          last_response_at?: string | null;
+          message?: string | null;
+          metadata?: Json;
+          payment_access_code?: string | null;
+          payment_amount_kes?: number | null;
+          payment_authorization_url?: string | null;
+          payment_currency?: string;
+          payment_expires_at?: string | null;
+          payment_gateway_response?: Json | null;
+          payment_reference?: string | null;
+          payment_status?: string;
+          payment_verified_at?: string | null;
+          room_type?: string;
+          status?: string;
+          suite_name?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      client_messages: {
+        Row: {
+          booking_request_id: string | null;
+          created_at: string;
+          delivery_error: string | null;
+          delivery_status: string;
+          id: string;
+          message: string;
+          recipient_email: string;
+          recipient_name: string | null;
+          sent_by: string | null;
+          subject: string;
+        };
+        Insert: {
+          booking_request_id?: string | null;
+          created_at?: string;
+          delivery_error?: string | null;
+          delivery_status?: string;
+          id?: string;
+          message: string;
+          recipient_email: string;
+          recipient_name?: string | null;
+          sent_by?: string | null;
+          subject: string;
+        };
+        Update: {
+          booking_request_id?: string | null;
+          created_at?: string;
+          delivery_error?: string | null;
+          delivery_status?: string;
+          id?: string;
+          message?: string;
+          recipient_email?: string;
+          recipient_name?: string | null;
+          sent_by?: string | null;
+          subject?: string;
+        };
+        Relationships: [];
+      };
       lead_inquiries: {
         Row: {
           assigned_to: string | null;

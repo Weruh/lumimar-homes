@@ -12,6 +12,7 @@ import InternalLeads from './pages/internal/Leads';
 import InternalLogin from './pages/internal/Login';
 import InternalMaintenance from './pages/internal/Maintenance';
 import SetPassword from './pages/auth/SetPassword';
+import InternalBookings from './pages/internal/Bookings';
 import OwnerDashboard from './pages/owner/Dashboard';
 import OwnerEarnings from './pages/owner/Earnings';
 import OwnerLogin from './pages/owner/Login';
@@ -28,6 +29,8 @@ import LongTermStays from './pages/public/LongTermStays';
 import NotFound from './pages/public/NotFound';
 import Pricing from './pages/public/Pricing';
 import StayInquiry from './pages/public/StayInquiry';
+import SuiteDetails from './pages/public/SuiteDetails';
+import SuitesRooms from './pages/public/SuitesRooms';
 
 export default function App() {
   return (
@@ -41,6 +44,8 @@ export default function App() {
           <Route path="interior-styling" element={<InteriorStyling />} />
           <Route path="case-studies" element={<CaseStudies />} />
           <Route path="about" element={<About />} />
+          <Route path="suites-rooms" element={<SuitesRooms />} />
+          <Route path="suites-rooms/:slug" element={<SuiteDetails />} />
           <Route path="stay" element={<StayInquiry />} />
           <Route path="apply" element={<Apply />} />
           <Route path="pricing" element={<Pricing />} />
@@ -74,6 +79,7 @@ export default function App() {
         >
           <Route index element={<Navigate to="dashboard" replace />} />
           <Route path="dashboard" element={<InternalDashboard />} />
+          <Route path="bookings" element={<InternalBookings />} />
           <Route path="leads" element={<InternalLeads />} />
           <Route path="cleaning" element={<InternalCleaning />} />
           <Route path="maintenance" element={<InternalMaintenance />} />

@@ -36,6 +36,10 @@ export default function InternalLayout() {
             <span className="material-symbols-outlined">leaderboard</span>
             <span className="text-sm font-medium tracking-wide">Lead Management</span>
           </Link>
+          <Link to="/internal/bookings" className={`${isActive('/internal/bookings')} rounded-xl flex items-center gap-3 p-3 transition-transform duration-200 hover:translate-x-1`}>
+            <span className="material-symbols-outlined">hotel</span>
+            <span className="text-sm font-medium tracking-wide">Bookings</span>
+          </Link>
           <Link to="/internal/cleaning" className={`${isActive('/internal/cleaning')} flex items-center gap-3 p-3 rounded-xl transition-transform duration-200 hover:translate-x-1`}>
             <span className="material-symbols-outlined">cleaning_services</span>
             <span className="text-sm font-medium tracking-wide">Cleaning</span>
@@ -97,6 +101,10 @@ export default function InternalLayout() {
         <Link to="/internal/leads" className="text-on-surface-variant/50 flex flex-col items-center gap-1">
           <span className="material-symbols-outlined">leaderboard</span>
           <span className="text-[10px] font-bold">Leads</span>
+        </Link>
+        <Link to="/internal/bookings" className="text-on-surface-variant/50 flex flex-col items-center gap-1">
+          <span className="material-symbols-outlined">hotel</span>
+          <span className="text-[10px] font-bold">Bookings</span>
         </Link>
         <Link to="/internal/cleaning" className="text-on-surface-variant/50 flex flex-col items-center gap-1">
           <span className="material-symbols-outlined">engineering</span>

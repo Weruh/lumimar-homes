@@ -53,7 +53,7 @@ export default function FullManagement() {
       <section className="relative min-h-[707px] flex items-center px-8 md:px-24 py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img src="/images/s11/1.jpg" alt="Shanzu managed property" className="w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#001226]/90 to-[#0F2740]/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-[#001226]/72 to-[#0F2740]/38"></div>
         </div>
         <div className="relative z-10 max-w-3xl">
           <p className="font-label text-tertiary-fixed-dim tracking-[0.3em] uppercase mb-6 text-sm">Platinum Tier  / Fully Hands-Off</p>
@@ -335,7 +335,7 @@ export default function FullManagement() {
         <div className="max-w-7xl mx-auto relative rounded-xl overflow-hidden py-24 text-center">
           <div className="absolute inset-0 z-0">
             <img src="/images/s10/1.jpg" alt="Shanzu property" className="w-full h-full object-cover" loading="lazy" />
-            <div className="absolute inset-0 bg-primary/80 backdrop-blur-sm"></div>
+            <div className="absolute inset-0 bg-primary/58 backdrop-blur-[1px]"></div>
           </div>
           <div className="relative z-10 max-w-2xl mx-auto px-8">
             <h2 className="font-headline text-4xl md:text-5xl text-white mb-6">

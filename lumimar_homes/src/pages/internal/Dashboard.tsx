@@ -12,6 +12,14 @@ type Lead = {
   created_at: string;
 };
 
+type BookingRequest = {
+  id: string;
+  suite_name: string;
+  guest_name: string;
+  status: string;
+  created_at: string;
+};
+
 type Property = {
   id: string;
   name: string;
@@ -70,6 +78,7 @@ function formatDate(value: string) {
 
 export default function InternalDashboard() {
   const [leads, setLeads] = useState<Lead[]>([]);
+  const [bookingRequests, setBookingRequests] = useState<BookingRequest[]>([]);
   const [properties, setProperties] = useState<Property[]>([]);
   const [cleaningJobs, setCleaningJobs] = useState<CleaningJob[]>([]);
   const [tickets, setTickets] = useState<MaintenanceTicket[]>([]);
@@ -87,8 +96,9 @@ export default function InternalDashboard() {
     setLoading(true);
     setError(null);
 
-    const [leadsResult, propertiesResult, cleaningResult, ticketsResult, payoutsResult] = await Promise.all([
+    const [leadsResult, bookingRequestsResult, propertiesResult, cleaningResult, ticketsResult, payoutsResult] = await Promise.all([
       (lumimar as any).from('lead_inquiries').select('id, name, location, stage, created_at').order('created_at', { ascending: false }),
+      (lumimar as any).from('booking_requests').select('id, suite_name, guest_name, status, created_at').order('created_at', { ascending: false }),
       (lumimar as any).from('properties').select('id, name, status'),
       (lumimar as any)
         .from('cleaning_jobs')
@@ -103,13 +113,14 @@ export default function InternalDashboard() {
       (lumimar as any).from('payouts').select('gross_revenue, deductions, net_payout, status'),
     ]);
 
-    const firstError = [leadsResult, propertiesResult, cleaningResult, ticketsResult, payoutsResult].find((result) => result.error)?.error;
+    const firstError = [leadsResult, bookingRequestsResult, propertiesResult, cleaningResult, ticketsResult, payoutsResult].find((result) => result.error)?.error;
 
     if (firstError) {
       setError(firstError.message);
     }
 
     setLeads((leadsResult.data ?? []) as Lead[]);
+    setBookingRequests((bookingRequestsResult.data ?? []) as BookingRequest[]);
     setProperties((propertiesResult.data ?? []) as Property[]);
     setCleaningJobs((cleaningResult.data ?? []) as CleaningJob[]);
     setTickets((ticketsResult.data ?? []) as MaintenanceTicket[]);
@@ -125,6 +136,7 @@ export default function InternalDashboard() {
     const activeTickets = tickets.filter((ticket) => ['open', 'in_progress', 'awaiting_owner'].includes(ticket.status));
     return {
       newLeads: leads.filter((lead) => lead.stage === 'new').length,
+      newBookingRequests: bookingRequests.filter((booking) => booking.status === 'new').length,
       activeProperties: properties.filter((property) => property.status === 'active').length,
       pendingCleans: cleaningJobs.filter((job) => job.status === 'scheduled' || job.status === 'in_progress').length,
       urgentTickets: activeTickets.filter((ticket) => ticket.priority === 'urgent').length,
@@ -132,7 +144,7 @@ export default function InternalDashboard() {
       netPayouts: payouts.reduce((sum, payout) => sum + Number(payout.net_payout ?? 0), 0),
       pendingPayouts: payouts.filter((payout) => payout.status === 'pending' || payout.status === 'approved').length,
     };
-  }, [cleaningJobs, leads, payouts, properties, tickets]);
+  }, [bookingRequests, cleaningJobs, leads, payouts, properties, tickets]);
 
   const groupedLeads = useMemo(
     () =>
@@ -164,6 +176,11 @@ export default function InternalDashboard() {
           <p className="text-sm font-medium uppercase tracking-tighter text-on-surface-variant">New Applicants</p>
           <h2 className="mt-1 text-3xl font-bold text-primary font-headline">{stats.newLeads}</h2>
         </Link>
+        <Link to="/internal/bookings" className="rounded-xl bg-surface-container-lowest p-6 shadow-ambient transition-colors hover:bg-surface-container-low">
+          <div className="mb-4 flex items-center justify-between"><span className="material-symbols-outlined text-primary">hotel</span><span className="rounded-full bg-cyan-50 px-2 py-0.5 text-xs font-bold text-cyan-700">Guests</span></div>
+          <p className="text-sm font-medium uppercase tracking-tighter text-on-surface-variant">New Bookings</p>
+          <h2 className="mt-1 text-3xl font-bold text-primary font-headline">{stats.newBookingRequests}</h2>
+        </Link>
         <Link to="/internal/leads" className="rounded-xl bg-surface-container-lowest p-6 shadow-ambient transition-colors hover:bg-surface-container-low">
           <div className="mb-4 flex items-center justify-between"><span className="material-symbols-outlined text-primary">holiday_village</span><span className="text-xs font-bold text-on-surface-variant/60">{properties.length} total</span></div>
           <p className="text-sm font-medium uppercase tracking-tighter text-on-surface-variant">Active Properties</p>
@@ -179,6 +196,28 @@ export default function InternalDashboard() {
           <p className="text-sm font-medium uppercase tracking-tighter opacity-70">Maintenance Tickets</p>
           <h2 className="mt-1 text-3xl font-bold font-headline">{tickets.length}</h2>
         </Link>
+      </section>
+
+      <section className="rounded-xl bg-surface-container-lowest p-8 shadow-ambient">
+        <div className="mb-6 flex items-center justify-between">
+          <h3 className="text-2xl text-primary font-headline">Recent Room Booking Requests</h3>
+          <Link to="/internal/bookings" className="text-sm font-bold text-primary hover:underline">Manage Bookings</Link>
+        </div>
+        <div className="space-y-4">
+          {bookingRequests.length === 0 ? (
+            <p className="text-sm text-on-surface-variant">No room booking requests yet.</p>
+          ) : (
+            bookingRequests.slice(0, 5).map((booking) => (
+              <div key={booking.id} className="flex items-center justify-between border-b border-outline-variant/10 pb-4">
+                <div>
+                  <p className="text-sm font-bold text-primary">{booking.suite_name}</p>
+                  <p className="text-xs text-on-surface-variant">{booking.guest_name} / {formatDate(booking.created_at)}</p>
+                </div>
+                <span className="text-xs font-bold uppercase text-on-surface-variant">{booking.status}</span>
+              </div>
+            ))
+          )}
+        </div>
       </section>
 
       <section className="grid grid-cols-1 gap-8 lg:grid-cols-3">

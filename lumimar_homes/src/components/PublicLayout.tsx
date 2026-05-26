@@ -5,23 +5,25 @@ const WA_LINK = `https://wa.me/254705551021`;
 const EMAIL = 'hello@home.lumimarbrand.com';
 
 const MOBILE_LINKS = [
+  { to: '/suites-rooms', label: 'Suites & Rooms' },
+  { to: '/stay', label: 'Find a Stay' },
   { to: '/full-management', label: 'Full Management' },
   { to: '/co-hosting', label: 'Co-Hosting' },
-  { to: '/interior-styling', label: 'Interior Styling' },
-  { to: '/long-term-stays', label: 'Long-Term Stays' },
   { to: '/pricing', label: 'Pricing' },
   { to: '/case-studies', label: 'Case Studies' },
+  { to: '/interior-styling', label: 'Interior Styling' },
+  { to: '/long-term-stays', label: 'Long-Term Stays' },
   { to: '/about', label: 'About' },
-  { to: '/stay', label: 'Find a Stay' },
 ];
 
 const DESKTOP_LINKS = [
+  { to: '/suites-rooms', label: 'Suites & Rooms', compact: 'Rooms' },
   { to: '/full-management', label: 'Property Owners', compact: 'Owners' },
   { to: '/co-hosting', label: 'Co-Hosting' },
-  { to: '/interior-styling', label: 'Interior Styling', compact: 'Styling' },
-  { to: '/long-term-stays', label: 'Long-Term Stays', compact: 'Long Stays' },
   { to: '/pricing', label: 'Pricing' },
   { to: '/case-studies', label: 'Case Studies', compact: 'Results' },
+  { to: '/interior-styling', label: 'Interior Styling', compact: 'Styling' },
+  { to: '/long-term-stays', label: 'Long-Term Stays', compact: 'Long Stays' },
   { to: '/about', label: 'About' },
 ];
 
@@ -33,6 +35,7 @@ const SEO: Record<string, { title: string; description: string }> = {
   '/long-term-stays': { title: 'Long-Term Stays | Lumimar Homes', description: 'Premium furnished monthly stays.' },
   '/case-studies': { title: 'Case Studies | Lumimar Homes', description: 'Real results from managed properties.' },
   '/about': { title: 'About Us | Lumimar Homes', description: 'Luxury coastal property management in Kenya.' },
+  '/suites-rooms': { title: 'Suites & Rooms | Lumimar Homes', description: 'Browse and book Lumimar-managed suites, rooms, penthouses, and villas in Shanzu.' },
   '/stay': { title: 'Book a Stay | Lumimar Homes', description: 'Browse premium properties on the Kenya Coast.' },
   '/apply': { title: 'Get a Revenue Estimate | Lumimar Homes', description: 'Free revenue estimate for your property.' },
   '/pricing': { title: 'Pricing | Lumimar Homes', description: 'Transparent management fees.' },
@@ -47,7 +50,7 @@ export default function PublicLayout() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const data = SEO[pathname] || SEO['/'];
+    const data = SEO[pathname] || (pathname.startsWith('/suites-rooms/') ? SEO['/suites-rooms'] : SEO['/']);
     document.title = data.title;
     const updateMeta = (name: string, content: string, attr = 'name') => {
       let el = document.querySelector(`meta[${attr}="${name}"]`);

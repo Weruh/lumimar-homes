@@ -75,7 +75,7 @@ export default function Home() {
       {/* ── Hero ── */}
       <section className="relative min-h-[420px] md:min-h-[500px] flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img src="/images/s6/1.jpg" alt="Shanzu coastal villa" className="w-full h-full object-cover brightness-[0.85]" />
+          <img src="/images/s6/1.jpg" alt="Shanzu coastal villa" className="w-full h-full object-cover brightness-[0.95]" />
         </div>
         <div className="relative z-10 w-full max-w-7xl mx-auto px-8">
           <div className="max-w-xl bg-surface/10 backdrop-blur-sm p-8 md:p-10 rounded-xl">
@@ -481,7 +481,7 @@ export default function Home() {
       {/* ── Final CTA ── */}
       <section className="py-24 px-8">
         <div className="max-w-6xl mx-auto bg-primary rounded-3xl p-16 text-center relative overflow-hidden">
-          <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0 opacity-20">
             <img src="/images/s4/1.jpg" alt="Shanzu property" className="w-full h-full object-cover" loading="lazy" />
           </div>
           <div className="relative z-10 space-y-8">
