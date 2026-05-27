@@ -120,9 +120,7 @@ export default function CaseStudies() {
             Every case study above started with a free conversation. We looked at the property, ran the numbers, and showed the owner what was possible. That cost nothing.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/apply" className="inline-block bg-tertiary-fixed-dim text-on-tertiary-fixed px-10 py-4 rounded-md font-bold hover:bg-white transition-colors">
-              Get a Free Revenue Estimate
-            </Link>
+            
             <a
               href="https://wa.me/254705551021"
               target="_blank"

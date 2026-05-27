@@ -64,9 +64,7 @@ export default function FullManagement() {
             For owners who want zero operational involvement - whether you live in Nairobi, London, or Dubai. We take total stewardship of your property. You just receive your monthly transfer.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <Link to="/apply" className="bg-tertiary-fixed-dim text-on-tertiary-fixed px-10 py-4 rounded-md font-semibold tracking-wide hover:bg-white transition-all duration-300 shadow-ambient text-center">
-              Get a Free Revenue Estimate
-            </Link>
+            
             <a
               href={WA_LINK}
               target="_blank"

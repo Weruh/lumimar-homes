@@ -19,9 +19,7 @@ export default function CoHostingServices() {
               You keep the hands-on aspects you enjoy. We take over the digital complexity  pricing, listings, guest comms  and make your property perform like a professionally managed asset.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/apply" className="bg-primary text-white px-8 py-4 rounded-md font-semibold tracking-wide hover:bg-primary/90 transition-all shadow-ambient text-center">
-                Get a Free Revenue Estimate
-              </Link>
+            
               <a
                 href="https://wa.me/254705551021"
                 target="_blank"

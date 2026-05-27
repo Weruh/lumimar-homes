@@ -86,13 +86,8 @@ export default function About() {
           <p className="text-on-surface-variant text-lg mb-12 leading-relaxed">
             Whether you're ready to partner or just exploring your options, we'd love to hear from you. No pressure, no scripts, just a straight conversation about what your property can earn.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <Link
-              to="/apply"
-              className="inline-flex min-h-14 items-center justify-center bg-primary text-white px-5 py-3 rounded-lg text-sm font-bold hover:bg-primary-container transition-colors shadow-ambient text-center"
-            >
-              Get a Free Revenue Estimate
-            </Link>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 ">
+            
             <a
               href="https://wa.me/254705551021"
               target="_blank"

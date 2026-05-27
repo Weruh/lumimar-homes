@@ -89,9 +89,7 @@ export default function Home() {
               Properties managed by Lumimar average <strong className="text-tertiary-fixed-dim">94% occupancy</strong> and earn <strong className="text-tertiary-fixed-dim">65% more</strong> than comparable self-managed units - delivering average annual yields of <strong className="text-tertiary-fixed-dim">14-18%</strong> on property value.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/apply" className="bg-tertiary-fixed-dim text-on-tertiary-fixed px-8 py-4 rounded-lg font-semibold hover:bg-white transition-all text-center">
-                Get a Free Revenue Estimate
-              </Link>
+             
               <a
                 href={WA_LINK}
                 target="_blank"
@@ -490,9 +488,7 @@ export default function Home() {
               Get a free, no-obligation revenue estimate based on real data from our active portfolio on the Kenya Coast.
             </p>
             <div className="flex flex-col md:flex-row gap-4 justify-center pt-4">
-              <Link to="/apply" className="bg-tertiary-fixed-dim text-on-tertiary-fixed px-12 py-5 rounded-lg font-bold text-lg hover:bg-white transition-colors">
-                Get Free Revenue Estimate
-              </Link>
+              
               <a
                 href={WA_LINK}
                 target="_blank"
